@@ -22,10 +22,6 @@
                     @apply h-35 m-2.5 transition-all duration-400 hover:scale-120;
                 }
 
-                .tarjeta-producto {
-                    @apply flex flex-col gap-2;
-                }
-
                 .vitrina {
                     @apply aspect-square bg-white rounded-lg overflow-hidden flex items-center justify-center p-4;
                 }
@@ -38,6 +34,14 @@
                     @apply font-semibold;
                 }
 
+                .tarjeta-producto {
+                    @apply flex flex-col gap-3;
+                }
+
+                .tarjeta-info {
+                    @apply flex flex-col gap-0.5;
+                }
+
                 .tarjeta-datos {
                     @apply flex justify-between items-baseline;
                 }
@@ -47,7 +51,7 @@
                 }
 
                 .tarjeta-acciones {
-                    @apply flex flex-wrap items-center gap-2;
+                    @apply mt-auto flex flex-col gap-2;
                 }
 
                 .input{
@@ -71,7 +75,7 @@
                 }
 
                 .catalogo {
-                    @apply grid grid-cols-2 gap-6 p-6 md:grid-cols-3 lg:grid-cols-4;
+                    @apply grid grid-cols-2 gap-x-6 gap-y-12 p-6 md:grid-cols-3 lg:grid-cols-4;
                 }
             }
         </style>

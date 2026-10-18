@@ -11,20 +11,23 @@
             <img class="imagen-vitrina" src="mostrar_imagen?id={{ID}}" alt="{{TITULO}}">
         </div>
 
-        <h2 class="tarjeta-titulo">{{TITULO}}</h2>
-
-        <div class="tarjeta-datos">
-            <span>{{CATEGORIA}}</span>
-            <span class="tarjeta-precio">{{PRECIO}} €</span>
+        <div class="tarjeta-info">
+            <h2 class="tarjeta-titulo">{{TITULO}}</h2>
+            <div class="tarjeta-datos">
+                <span>{{CATEGORIA}}</span>
+                <span class="tarjeta-precio">{{PRECIO}} €</span>
+            </div>
         </div>
 
         <div class="tarjeta-acciones">
-            <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">Ver detalles</a>
-            <label>
-                Cantidad
-                <input class="input input-cantidad" type="number" value="1">
-            </label>
-            <a href="#" class="btn" onclick="agregarProductoCarrito({{ID}})">Añadir al carrito</a>
+            <div class="tarjeta-datos">
+                <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">Ver detalles</a>
+                <label>
+                    Cantidad
+                    <input class="input input-cantidad" type="number" value="1">
+                </label>
+            </div>
+            <a href="#" class="btn w-full text-center" onclick="agregarProductoCarrito({{ID}})">Añadir al carrito</a>
         </div>
 
     </div>
