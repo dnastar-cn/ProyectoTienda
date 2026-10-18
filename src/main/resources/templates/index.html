@@ -22,22 +22,6 @@
             margin: 0;
             overflow-x: hidden; /* evita que aparezca scroll horizontal */
         }
-
-        .pikachu {
-            position: fixed;
-            top: 20px;
-            left: 0;
-            width: 100px;   /* ajusta al tamaño real de tu GIF */
-            animation: ida-y-vuelta 6s linear infinite;
-        }
-
-        @keyframes ida-y-vuelta {
-            0%   { transform: translateX(0) scaleX(1); }
-            49%  { transform: translateX(calc(100vw - 100px)) scaleX(1); }
-            50%  { transform: translateX(calc(100vw - 100px)) scaleX(-1); } /* se gira al llegar al final */
-            99%  { transform: translateX(0) scaleX(-1); }
-            100% { transform: translateX(0) scaleX(1); }                    /* se gira al volver al inicio */
-        }
     </style>
 
 </head>
@@ -248,8 +232,6 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
 
     mostrar_figura()
 </script>
-
-<img src="css/pikachu.gif" alt="Pikachu" class="pikachu">
 
 </body>
 </html>
