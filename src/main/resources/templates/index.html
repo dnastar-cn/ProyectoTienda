@@ -1,28 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
     <title>Store Enlinea</title>
-    <link rel="stylesheet" href="css/estilos.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+
     <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
     <script src="librerias_js/mustache.js"></script>
 
-    <style>
-        .imagen-producto:hover {
-            transform: scale(1.20);
-        }
-        .imagen-producto{
-            height: 140px;
-            margin: 10px;
-            transition: all 0.4s;
-        }
 
-        body {
-            margin: 0;
-            overflow-x: hidden; /* evita que aparezca scroll horizontal */
-        }
-    </style>
 
 </head>
 <body>
