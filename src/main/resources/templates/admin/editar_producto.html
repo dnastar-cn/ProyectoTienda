@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="fragments/general.html :: menu"></div>
+
+<div>Modifica los datos del producto</div>
+
+<form action="#" th:action="guardarCambiosFigura" th:object="${figuraEditar}" method="post" enctype="multipart/form-data">
+    titulo: <input type="text" th:field="*{titulo}">
+
+    <span style="color: red" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+
+    <br>
+
+    categoria:
+    <select th:field="*{idCategoria}">
+        <option th:each="c : ${categorias}" th:text="${c.nombre}" th:value="${c.id}" />
+    </select>
+    <br>
+    precio: <input type="text" th:field="*{precio}">
+
+    <span style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+
+    <br>
+    plataforma: <input type="text" th:field="*{plataforma}">
+    <br>
+    descripcion: <input type="text" th:field="*{descripcion}">
+    <br>
+    foto actual:
+    <br>
+    <img th:src="@{/mostrar_imagen(id=${figuraEditar.id})}" height="140px"/>
+    <br>
+    portada: <input type="file" th:field="*{fotoSubida}">
+    <br>
+    <input type="hidden" th:field="*{id}">
+
+    <input type="submit" value="GUARDAR CAMBIOS">
+</form>
+
+</body>
+</html>

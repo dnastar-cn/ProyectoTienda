@@ -1,0 +1,36 @@
+
+<!--esto es otra plantilla para mustache-->
+<div style="text-align: center">
+    <div style="font-size: 20px; font-weight: bold">
+        {{TITULO}}
+    </div>
+
+    <div style="margin: 10px">
+        {{CATEGORIA}}
+    </div>
+
+    <div style="display: flex; justify-content: center">
+        <img class="imagen-producto" src="mostrar_imagen?id={{ID}}"/>
+    </div>
+
+
+
+    <div style="margin: 5px">
+        {{DESCRIPCION}}
+    </div>
+
+    <div style="margin: 5px">
+        precio: {{PRECIO}}
+    </div>
+
+    <div style="margin: 5px">
+        plataforma: {{PLATAFORMA}}
+    </div>
+
+    <div>
+    cantidad: <input type="number" value="1" style="background-color: white; width: 50px">
+    <br>
+    <a href="#" class="underline" onclick="alert('agregar cantidad a carrito')">agregar carrito</a>
+    </div>
+
+</div>

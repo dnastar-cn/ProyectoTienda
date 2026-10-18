@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Store Enlinea</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
+    <script src="librerias_js/mustache.js"></script>
+
+    <style>
+        .imagen-producto:hover {
+            transform: scale(1.20);
+        }
+        .imagen-producto{
+            height: 140px;
+            margin: 10px;
+            transition: all 0.4s;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden; /* evita que aparezca scroll horizontal */
+        }
+
+        .pikachu {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            width: 100px;   /* ajusta al tamaño real de tu GIF */
+            animation: ida-y-vuelta 6s linear infinite;
+        }
+
+        @keyframes ida-y-vuelta {
+            0%   { transform: translateX(0) scaleX(1); }
+            49%  { transform: translateX(calc(100vw - 100px)) scaleX(1); }
+            50%  { transform: translateX(calc(100vw - 100px)) scaleX(-1); } /* se gira al llegar al final */
+            99%  { transform: translateX(0) scaleX(-1); }
+            100% { transform: translateX(0) scaleX(1); }                    /* se gira al volver al inicio */
+        }
+    </style>
+
+</head>
+<body>
+
+<a class="underline" href="admin/inicioAdmin">Acceso a adeministracion</a>
+
+
+<!--la parte publica sera una SPA
+el javascript de esta unica pagina gestionara todo lo que el usuario necesite
+-->
+
+
+<div>
+    bienvenido a la parte publica de la tienda
+</div>
+
+
+<div class="[&_a]:underline">
+    <!--    <a href="#" style="margin: 10px;" id="inicio">INICIO </a>-->
+    <a href="#" style="margin: 10px;" id="figuras">figuras</a>
+    <a href="#" style="margin: 10px;" id="registrarme">REGISTRARME</a>
+    <a href="#" style="margin: 10px;" id="identificarme">IDENTIFICARME</a>
+    <a href="#" style="margin: 10px;" id="carrito">CARRITO</a>
+    <a href="#" style="margin: 10px;" id="pedidos">VER MIS PEDIDOS</a>
+    <a href="#" style="margin: 10px;" id="mis_datos">MIS DATOS</a>
+    <a href="#" style="margin: 10px;" id="cerrar_sesion">CERRAR SESION</a>
+
+</div>
+
+<div id="contenedor">
+
+</div>
+
+<script src="librerias_js/jquery.js"></script>
+
+<script>
+    //variables globales
+    nombre_login = "" // variable que indica el nombre del usuario si se ha identificado
+
+    //parte de descarga de plantillas html
+    //plantilla_inicio = $.get("plantillas_html/inicio.html")
+    $.get("plantillas_html/inicio.html").done(function(res){
+        plantilla_inicio = res
+    })
+
+
+    $.get("plantillas_html/listado_productos.html").done(function (res){
+        plantilla_productos = res
+    })
+
+    $.get("plantillas_html/detalles_producto.html").done(function (res){
+        plantilla_detalles_producto = res
+    })
+
+    $.get("plantillas_html/registro_usuario.html").done(function (res){
+        plantilla_registro_usuario = res
+    })
+
+    $.get("plantillas_html/identificar_usuario.html").done(function (res){
+        plantilla_login_usuario = res
+    })
+
+    //parte de atencion a enlaces
+    $("#inicio").click(
+        function (){
+            $("#contenedor").html(plantilla_inicio)
+        }
+    )
+
+    function mostrar_figura(){
+        $.getJSON("restFiguras/listar").done(
+            function (json){
+                //alert(json)
+                console.log(json)
+                //vamos a usar el json para listar los productos
+                resultadoMustache = Mustache.render(plantilla_productos, json)
+                $("#contenedor").html(resultadoMustache)
+            }
+        )
+    }//end mostrar_figura
+
+    function mostrar_detalles(id){
+        //alert('mostrar detalles del producto de id: ' + id)
+        $.getJSON("restFiguras/obtener-figura",
+            {
+                id: id
+            }).done(
+                function (json){
+                    console.log(json)
+                    //alert("json recibido mira consola, vamos a usar una plantilla de plantillas_htl para mostrarlo")
+                    resultadoHtml=Mustache.render(plantilla_detalles_producto,json)
+                    $("#contenedor").html(resultadoHtml)
+                }
+        )//end done
+    }//fin mostrar_detalles
+
+    $("#figuras").click(
+        mostrar_figura
+    )//end figuras click
+
+    //por defecto cuando se acceda a la web
+    //que muestre los figuras de la tienda
+
+    $("#registrarme").click(
+        mostrar_formulario_registro_usuario
+    )
+
+    function mostrar_formulario_registro_usuario(){
+        $("#contenedor").html(plantilla_registro_usuario)
+        // una vez mostrado el form de registro
+        // vamos a decir que va a pasar cuando se haga click en Registrarse
+        $("#form_registro_usuario").submit(
+            function(e){
+                //codigo a ejecutar cuando se haga el submit/envio del form
+                e.preventDefault() // para evitar que el boton del form
+                // refresque la pagina
+                //validar datos del form...
+                //suponemos de momento que todos los datos estan bien
+                // tenemos una cosa llamada FormData
+                // que nos va a permitir obtener todo lo insertado en form
+                // de una sola vez
+                formulario = document.forms[0]
+                formData = new FormData(formulario)
+                console.log("bien, ya tengo toda la informacion introducida:")
+                console.log(Object.fromEntries(formData))
+                //mandar este formData a un servicio REST
+                // mandar el formData a UsuariosREST
+                $.ajax("restUsuarios/registrarUsuario",{
+                    type : "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (res){
+                        alert(res)
+                        confetti()
+                    }
+
+                })
+
+            }//end function
+        )//end submit
+    }// end mostrar_formulario_registro_usuario
+
+    $("#identificarme").click(
+        mostrar_login
+    )
+
+    function mostrar_login(){
+        $("#contenedor").html(plantilla_login_usuario)
+        //despues de mostrar la plantilla html de identificar usuario
+        //vamos a decir que hacer cuando el usuario haga click en
+        //Identificarme
+        $("#form_login").submit(
+            function (e){
+                e.preventDefault()
+                $.post("restUsuarios/identificarUsuario",
+                    {
+                        email: $("#email").val(),
+                        pass: $("#pass").val()
+                    }
+                ).done(function (res){
+                    nombre_login = res.split(",")[1]
+                    //aprovechamos y listamos productos
+                    alert("identificado correctamente, ya puedes agregar productos a carrito")
+                    mostrar_figura()
+                })
+
+            }//end function
+        )//end submit
+    }//end mostrar_login
+
+    function agregarProductoCarrito(idProducto){
+        if ( nombre_login == "" ){
+            alert("identificate primero")
+            return
+        }
+        //mandar a un servicio REST la id y la cantidad del producto
+        $.post("restCarrito/agregarProducto",{
+            id: idProducto,
+            cantidad: 1
+        }).done(function(res){
+            alert(res)
+        })
+    }//end agregarProductoCarrito
+
+    $("#carrito").click(
+        function(){
+            alert("pedir el carrito")
+        }
+    )
+    $("#pedidos").click(
+        function(){
+            alert("pedir los pedidos del usuario")
+        }
+    )
+    $("#mis_datos").click(
+        function(){
+            alert("pedir los datos del usuario")
+        }
+    )
+    $("#cerrar_sesion").click(
+        function(){
+            alert("cerrar la sesion del usuario")
+        }
+    )
+
+    mostrar_figura()
+</script>
+
+<img src="css/pikachu.gif" alt="Pikachu" class="pikachu">
+
+</body>
+</html>

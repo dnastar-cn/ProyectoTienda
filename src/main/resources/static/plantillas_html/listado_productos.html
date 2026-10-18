@@ -1,0 +1,19 @@
+{{#.}}
+
+<!-- esta es la nomenclatura de mustache.js
+ con esto indicamos que el html que haya aqui se pueda usar para aplicarlo sobre
+ cada elemento de un array-->
+
+<div style="margin: 10px">
+    titulo: {{TITULO}} <br>
+    categoria: {{CATEGORIA}}<br>
+    <img class="imagen-producto" src="mostrar_imagen?id={{ID}}"/>
+    precio: {{PRECIO}} <br>
+    plataforma: {{PLATAFORMA}} <br>
+    <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">ver detalles</a><br>
+    cantidad: <input type="number" value="1" style="background-color: white; width: 50px">
+    <br>
+    <a href="#" class="underline" onclick="agregarProductoCarrito({{ID}})">agregar al carrito</a>
+</div>
+
+{{/.}}
