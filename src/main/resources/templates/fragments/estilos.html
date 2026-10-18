@@ -22,8 +22,32 @@
                     @apply h-35 m-2.5 transition-all duration-400 hover:scale-120;
                 }
 
-                .tarjeta-producto{
-                    
+                .tarjeta-producto {
+                    @apply flex flex-col gap-2;
+                }
+
+                .vitrina {
+                    @apply aspect-square bg-white rounded-lg overflow-hidden flex items-center justify-center p-4;
+                }
+
+                .imagen-vitrina {
+                    @apply w-full h-full object-contain transition-transform duration-300 ease-out hover:scale-105;
+                }
+
+                .tarjeta-titulo {
+                    @apply font-semibold;
+                }
+
+                .tarjeta-datos {
+                    @apply flex justify-between items-baseline;
+                }
+
+                .tarjeta-precio {
+                    @apply font-bold;
+                }
+
+                .tarjeta-acciones {
+                    @apply flex flex-wrap items-center gap-2;
                 }
 
                 .input{

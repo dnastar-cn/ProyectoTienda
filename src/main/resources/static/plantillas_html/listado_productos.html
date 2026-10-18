@@ -5,18 +5,30 @@
  con esto indicamos que el html que haya aqui se pueda usar para aplicarlo sobre
  cada elemento de un array-->
 
+    <div class="tarjeta-producto">
 
-<div class="tarjeta-producto">
-    titulo: {{TITULO}} <br>
-    categoria: {{CATEGORIA}}<br>
-    <img class="imagen-producto" src="mostrar_imagen?id={{ID}}"/>
-    precio: {{PRECIO}} <br>
-    plataforma: {{PLATAFORMA}} <br>
-    <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">ver detalles</a><br>
-    cantidad: <input class="input input-cantidad" type="number" value="1" >
-    <br>
-    <a href="#" class="underline" onclick="agregarProductoCarrito({{ID}})">agregar al carrito</a>
-</div>
+        <div class="vitrina">
+            <img class="imagen-vitrina" src="mostrar_imagen?id={{ID}}" alt="{{TITULO}}">
+        </div>
+
+        <h2 class="tarjeta-titulo">{{TITULO}}</h2>
+
+        <div class="tarjeta-datos">
+            <span>{{CATEGORIA}}</span>
+            <span class="tarjeta-precio">{{PRECIO}} €</span>
+        </div>
+
+        <div class="tarjeta-acciones">
+            <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">Ver detalles</a>
+            <label>
+                Cantidad
+                <input class="input input-cantidad" type="number" value="1">
+            </label>
+            <a href="#" class="btn" onclick="agregarProductoCarrito({{ID}})">Añadir al carrito</a>
+        </div>
+
+    </div>
+
 
 {{/.}}
 
