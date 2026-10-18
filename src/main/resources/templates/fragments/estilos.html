@@ -8,6 +8,7 @@
             @theme {
                 --color-fondo: #fde68a;
                 --color-error: #dc2626;
+                --color-primario: #2529DC;
             }
 
             @layer base {
@@ -24,18 +25,27 @@
                 .tarjeta-producto{
                     @apply m-2.5;
                 }
+
                 .input{
-                    @apply bg-white;
+                    @apply bg-white border;
                 }
+
                 .input-cantidad{
                     @apply text-right pr-2 w-12.5;
                 }
+
                 .menu-principal a{
                     @apply m-2.5 underline;
                 }
+
                 .mensaje-error{
                     @apply text-error;
                 }
+
+                .btn{
+                    @apply bg-primario text-white p-2;
+                }
+
             }
         </style>
     </th:block>
