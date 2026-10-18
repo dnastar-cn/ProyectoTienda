@@ -2,6 +2,11 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:fragment="estilos">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
         <style type="text/tailwindcss">
@@ -9,6 +14,8 @@
                 --color-fondo: #fde68a;
                 --color-error: #dc2626;
                 --color-primario: #2529DC;
+                --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+                --color-texto-suave: #5c5346;
             }
 
             @layer base {
@@ -31,7 +38,7 @@
                 }
 
                 .tarjeta-titulo {
-                    @apply font-semibold;
+                    @apply font-semibold leading-snug text-balance;
                 }
 
                 .tarjeta-producto {
@@ -43,15 +50,15 @@
                 }
 
                 .tarjeta-datos {
-                    @apply flex justify-between items-baseline;
+                    @apply flex justify-between items-baseline text-sm text-texto-suave;
                 }
 
                 .tarjeta-precio {
-                    @apply font-bold;
+                    @apply text-base font-bold text-black tabular-nums;
                 }
 
                 .tarjeta-acciones {
-                    @apply mt-auto flex flex-col gap-2;
+                    @apply mt-auto flex flex-col gap-2 text-sm;
                 }
 
                 .input{
