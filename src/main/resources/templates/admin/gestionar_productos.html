@@ -14,7 +14,7 @@
     <a href="registrarFigura">Nuevo producto</a>
 </div>
 
-<div th:each="f : ${figuras}" style="margin: 15px">
+<div th:each="f : ${figuras}" class="m-4">
     titulo: <span th:text="${f.titulo}"></span>
     <br>
     categoria: <span th:text="${f.categoria.nombre}"></span>
