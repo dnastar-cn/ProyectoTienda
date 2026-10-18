@@ -14,12 +14,12 @@
 <form action="#" th:action="guardarFigura" th:object="${nuevo}" method="post" enctype="multipart/form-data">
     titulo: <input type="text" th:field="*{titulo}">
 
-    <span style="color: red" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+    <span class="mensaje-error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
 
     <br>
     precio: <input type="text" th:field="*{precio}">
 
-    <span style="color: red" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+    <span class="mensaje-error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
 
     <br>
 

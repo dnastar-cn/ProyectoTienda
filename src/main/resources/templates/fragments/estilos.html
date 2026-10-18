@@ -7,6 +7,7 @@
         <style type="text/tailwindcss">
             @theme {
                 --color-fondo: #fde68a;
+                --color-error: #dc2626;
             }
 
             @layer base {
@@ -28,6 +29,12 @@
                 }
                 .input-cantidad{
                     @apply text-right pr-2 w-12.5;
+                }
+                .menu-principal a{
+                    @apply m-2.5 underline;
+                }
+                .mensaje-error{
+                    @apply text-error;
                 }
             }
         </style>
