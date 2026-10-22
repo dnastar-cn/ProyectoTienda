@@ -1,0 +1,27 @@
+<div class="seccion">
+    <h1 class="titulo-seccion">Tu carrito</h1>
+
+    <div class="lista-carrito">
+    {{#.}}
+        <div class="fila-carrito">
+            <div class="vitrina vitrina-mini">
+                <img class="imagen-vitrina" src="mostrar_imagen?id={{FIGURA_ID}}" alt="{{TITULO}}">
+            </div>
+            <div class="fila-carrito-info">
+                <h2 class="tarjeta-titulo">{{TITULO}}</h2>
+                <span class="tarjeta-precio">{{PRECIO}} €</span>
+            </div>
+            <label class="texto-suave">
+                Cantidad
+                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}">
+            </label>
+            <a href="#" class="texto-suave underline">Borrar producto</a>
+        </div>
+    {{/.}}
+    {{^.}}
+        <p class="texto-suave">Tu carrito está vacío.</p>
+    {{/.}}
+    </div>
+
+    <a class="btn self-start" href="#" id="realizar_pedido">Realizar pedido</a>
+</div>

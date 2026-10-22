@@ -30,16 +30,33 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
 </div>
 
 
+<div class="usuario-actual" id="usuarioActual">
+    Usuario no identificado
+</div>
+
 <div class="menu-principal">
     <!--    <a href="#" style="margin: 10px;" id="inicio">INICIO </a>-->
-    <a href="#"  id="figuras">Figuras</a>
-    <a href="#"  id="registrarme">Registrarme</a>
-    <a href="#"  id="identificarme">Identificarme</a>
-    <a href="#"  id="carrito">Carrito</a>
-    <a href="#"  id="pedidos">Ver mis pedidos</a>
-    <a href="#"  id="mis_datos">Mis datos</a>
-    <a href="#"  id="cerrar_sesion">Cerrar sesión</a>
-
+    <div class="enlace-figuras">
+        <a href="#"  id="figuras">Figuras</a>
+    </div>
+    <div class="enlace-registrarme">
+        <a href="#"  id="registrarme">Registrarme</a>
+    </div>
+    <div class="enlace-identificarme">
+        <a href="#"  id="identificarme">Identificarme</a>
+    </div>
+    <div class="enlace-carrito">
+        <a href="#"  id="carrito">Carrito</a>
+    </div>
+    <div class="enlace-pedidos">
+        <a href="#"  id="pedidos">Ver mis pedidos</a>
+    </div>
+    <div class="enlace-mis_datos">
+        <a href="#"  id="mis_datos">Mis datos</a>
+    </div>
+    <div class="enlace-cerrar_sesion">
+        <a href="#"  id="cerrar_sesion">Cerrar sesión</a>
+    </div>
 </div>
 
 <div id="contenedor">
@@ -73,6 +90,14 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
 
     $.get("plantillas_html/identificar_usuario.html").done(function (res){
         plantilla_login_usuario = res
+    })
+
+    $.get("plantillas_html/carrito.html").done(function (res){
+        plantilla_carrito = res
+    })
+
+    $.get("plantillas_html/check_out_1.html").done(function (res){
+        plantilla_check_out_1 = res
     })
 
     //parte de atencion a enlaces
@@ -175,10 +200,23 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
                         pass: $("#pass").val()
                     }
                 ).done(function (res){
+                    if(res == "email o pass incorrectos"){
+                        alert(res)
+                        return
+                    }
                     nombre_login = res.split(",")[1]
                     //aprovechamos y listamos productos
                     alert("identificado correctamente, ya puedes agregar productos a carrito")
                     mostrar_figura()
+                    $("#usuarioActual").html("Bienvenido " + nombre_login)
+                    //ocultar los div de enlaces para usuarios no identificados
+                    $(".enlace-registrarme").css("display","none")
+                    $(".enlace-identificarme").css("display","none")
+                    //mostrar los div de enlaces para usuarios identificados
+                    $(".enlace-carrito").css("display","block")
+                    $(".enlace-pedidos").css("display","block")
+                    $(".enlace-mis_datos").css("display","block")
+                    $(".enlace-cerrar_sesion").css("display","block")
                 })
 
             }//end function
@@ -200,10 +238,27 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
     }//end agregarProductoCarrito
 
     $("#carrito").click(
-        function(){
-            alert("pedir el carrito")
-        }
+        mostrar_productos_carrito
     )
+
+    function mostrar_productos_carrito(){
+        $.getJSON("restCarrito/obtenerProductos").done(
+            function(res){
+                console.log("json recibido:")
+                console.log(res)
+                // usar la plantilla carrito para mostrar el json recibido
+                html = Mustache.render(plantilla_carrito, res)
+                $("#contenedor").html(html)
+                $("#realizar_pedido").click(
+                    mostrar_check_out_paso_1
+                )
+            }
+        )
+    }
+
+    function mostrar_check_out_paso_1(){
+        $("#contenedor").html(plantilla_check_out_1)
+    }
     $("#pedidos").click(
         function(){
             alert("pedir los pedidos del usuario")
