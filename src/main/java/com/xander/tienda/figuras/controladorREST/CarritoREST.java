@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("restCarrito/")
 public class CarritoREST {
@@ -35,7 +38,14 @@ public class CarritoREST {
                 cantidad
         );
         return respuesta;
-    }
+    }//end agregarProducto
 
+    @RequestMapping("obtenerProductos")
+    public List<Map<String,Object>> obtenerProductos(HttpServletRequest request){
+        return servicioCarrito.obtenerProductosCarrito(
+                ((Usuario)request.getSession().
+                        getAttribute("usuario_identificado")).getId()
+        );
+    }
 
 }
