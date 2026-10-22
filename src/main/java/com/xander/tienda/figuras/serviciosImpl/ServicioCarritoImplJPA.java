@@ -1,5 +1,6 @@
 package com.xander.tienda.figuras.serviciosImpl;
 
+import com.xander.tienda.figuras.constantesSQL.ConstantesSQL;
 import com.xander.tienda.figuras.model.Carrito;
 import com.xander.tienda.figuras.model.Figura;
 import com.xander.tienda.figuras.model.ProductoCarrito;
@@ -7,7 +8,10 @@ import com.xander.tienda.figuras.model.Usuario;
 import com.xander.tienda.figuras.servicios.ServicioCarrito;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import org.hibernate.query.sql.internal.NativeQueryImpl;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,6 +67,26 @@ public class ServicioCarritoImplJPA implements ServicioCarrito {
 
     @Override
     public List<Map<String, Object>> obtenerProductosCarrito(long idUsuario) {
-        return List.of();
+        //sacar los productos del carrito a partir de la id de usuario
+        // OBTENER EL CARRITO ASI AHORA MISMO NO ES FIABLE:
+//        Usuario u = entityManager.find(Usuario.class, idUsuario)
+//         Carrito c = u.getCarrito();
+        // ESTO MEJOR:
+        Carrito c = entityManager.createQuery(
+                "SELECT c FROM Carrito c WHERE c.usuario.id = :idUsuario", Carrito.class)
+                .setParameter("idUsuario", idUsuario)
+                .getSingleResult();
+        List<Map<String,Object>> res = null;
+        if(c != null){
+            Query query = entityManager.createNativeQuery(
+                    ConstantesSQL.SQL_OBTENER_PRODUCTOS_CARRITO_JSON
+            );
+            query.setParameter("carrito_id", c.getId());
+            //procesar la query
+            NativeQueryImpl nativeQuery = (NativeQueryImpl) query;
+            nativeQuery.setTupleTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+            res = nativeQuery.getResultList();
+        }
+        return res;
     }
 }

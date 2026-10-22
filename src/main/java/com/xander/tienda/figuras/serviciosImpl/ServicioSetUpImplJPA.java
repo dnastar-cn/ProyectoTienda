@@ -1,12 +1,14 @@
 package com.xander.tienda.figuras.serviciosImpl;
 
 import com.xander.tienda.figuras.model.*;
+import com.xander.tienda.figuras.servicios.ServicioPedidos;
 import com.xander.tienda.figuras.servicios.ServicioSetUp;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,6 +20,11 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    //en el caso de los pedidos, aprovechamos
+    //y testeamos el servicio de pedidos
+    @Autowired
+    private ServicioPedidos servicioPedidos;
 
     @Override
     public void prepararRegistrosIniciales() {
@@ -138,13 +145,27 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
             pc1.setCarrito(c1);
             pc1.setFigura(fPikachu);
             pc1.setCantidad(3);
+            c1.getProductosCarrito().add(pc1);
             entityManager.persist(pc1);
 
             ProductoCarrito pc2 = new ProductoCarrito();
             pc2.setCarrito(c1);
             pc2.setFigura(fGoku);
             pc2.setCantidad(1);
+            c1.getProductosCarrito().add(pc2);
             entityManager.persist(pc2);
+
+            //vamos tambien a registrar un pedido
+            //a partir del carrito
+            servicioPedidos.procesarPaso1(
+                    "Pedro Fernandez","Arguelles 12",
+                    "Madrid", u1.getId());
+            servicioPedidos.procesarPaso2(
+                    "Pedro Fernandez Del Soto","12345678912",
+                    "VISA", u1.getId()
+            );
+            servicioPedidos.confirmarPedido(u1.getId());
+            //ya tenemos un pedido en bd :)
 
             //una vez realizados los registros iniciales
             //guardo en registro en la tabla Configuracion

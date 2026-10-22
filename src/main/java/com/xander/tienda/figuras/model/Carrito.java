@@ -12,7 +12,7 @@ public class Carrito {
     @JoinColumn(referencedColumnName = "id")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "carrito")
+    @OneToMany(mappedBy = "carrito", fetch = FetchType.EAGER)
     private List<ProductoCarrito> productosCarrito =
             new ArrayList<ProductoCarrito>();
 
