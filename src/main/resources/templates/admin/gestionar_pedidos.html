@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+</head>
+<body>
+
+    <div th:insert="fragments/general.html :: menu"></div>
+    <div>Pedidos de la tienda:</div>
+    <div th:each="p : ${pedidos}" class="m-4">
+
+        <span th:text="${p.nombreCompleto}"></span><br>
+        <span th:text="${p.direccion}"></span><br>
+        Estado: <span th:text="${p.estado}"></span><br>
+        <a th:href="@{ ${ 'verDetallesPedido?id=' + p.id } }">Ver detalles</a>
+
+    </div>
+
+
+</body>
+</html>

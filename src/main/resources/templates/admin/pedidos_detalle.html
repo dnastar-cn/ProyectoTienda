@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+</head>
+<body>
+
+<div th:insert="fragments/general.html :: menu"></div>
+
+<div>Detalles pedido</div>
+
+<div>Datos de envio</div>
+nombre completo: <span th:text="${pedido.nombreCompleto}" ></span><br>
+direccion: <span th:text="${pedido.direccion}" ></span><br>
+provincia: <span th:text="${pedido.provincia}" ></span><br>
+
+<div>Datos de pago</div>
+tipo tarjeta: <span th:text="${pedido.tipoTarjeta}" ></span><br>
+titular: <span th:text="${pedido.titularTarjeta}" ></span><br>
+Nº de Tarjeta: <span th:text="${pedido.numeroTarjeta}" ></span><br>
+<br>
+
+
+<div>Productos del pedido</div>
+<div th:each="productoPedido : ${pedido.productosPedido}" >
+    Titulo: <span th:text="${productoPedido.figura.titulo}" ></span><br>
+    Precio Unidad: <span th:text="${productoPedido.figura.precio}" ></span><br>
+    Cantidad: <span th:text="${productoPedido.cantidad}" ></span><br>
+</div>
+
+<div >
+    Estado : <span th:text="${pedido.estado}" ></span><br>
+</div>
+
+
+</body>
+</html>
