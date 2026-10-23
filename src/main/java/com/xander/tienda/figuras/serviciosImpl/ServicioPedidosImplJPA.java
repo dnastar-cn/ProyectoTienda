@@ -28,17 +28,19 @@ public class ServicioPedidosImplJPA implements ServicioPedidos {
 
     @Override
     public List<Pedido> obtenerPedidos() {
-        return List.of();
+        return entityManager.createQuery("SELECT p FROM Pedido p ORDER BY p.id DESC").getResultList();
     }
 
     @Override
     public Pedido obtenerPedidoPorId(long id) {
-        return null;
+        return entityManager.find(Pedido.class,id);
     }
 
     @Override
     public void actualizarEstadoPedido(long id, String estado) {
-
+         Pedido p = entityManager.find(Pedido.class,id);
+         p.setEstado(estado);
+         entityManager.merge(p);
     }
 
     // operaciones con la parte publica

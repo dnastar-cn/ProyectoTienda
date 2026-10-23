@@ -7,17 +7,17 @@
 </head>
 <body>
 
-<div th:fragment="menu" class="admin-menu">
+<div th:fragment="menu" class="menu-principal">
 
-    <div class="admin-menu__top">
+    <div class="menu-principal">
         <span>Panel de administración</span>
-        <a class="admin-menu__public" href="../">Volver a la tienda</a>
+        <a class="menu-principal" href="../">Volver a la tienda</a>
     </div>
-    <nav class="admin-menu__links" aria-label="Gestión de la tienda">
+    <nav class="menu-principal" aria-label="Gestión de la tienda">
         <a href="gestionarFiguras">Figuras</a>
-        <a href="">Usuarios</a>
-        <a href="">Categorías</a>
-        <a href="">Pedidos</a>
+        <a href="#">Usuarios</a>
+        <a href="#">Categorías</a>
+        <a href="gestionarPedidos">Pedidos</a>
     </nav>
 </div>
 
