@@ -99,6 +99,12 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
     $.get("plantillas_html/check_out_1.html").done(function (res){
         plantilla_check_out_1 = res
     })
+    $.get("plantillas_html/check_out_2.html").done(function (res){
+        plantilla_check_out_2 = res
+    })
+    $.get("plantillas_html/check_out_3.html").done(function (res){
+        plantilla_check_out_3 = res
+    })
 
     //parte de atencion a enlaces
     $("#inicio").click(
@@ -258,7 +264,75 @@ el javascript de esta unica pagina gestionara todo lo que el usuario necesite
 
     function mostrar_check_out_paso_1(){
         $("#contenedor").html(plantilla_check_out_1)
+        $("#aceptar_paso_1").click(
+            enviar_datos_paso1
+        )
     }
+
+    function enviar_datos_paso1(){
+        //obtener los valores introducidos
+        //mandarlos a PedidosRest
+        nombreCompleto = $("#campo_nombre").val()
+        direccion = $("#campo_direccion").val()
+        provincia = $("#campo_provincia").val()
+
+        //validaciones...
+
+        $.post("restPedidos/procesarPaso1",
+            {
+                nombre: nombreCompleto,
+                direccion: direccion,
+                provincia: provincia
+            }
+        ).done(function (res){
+            //alert("el servidor responde: "+ res)
+            if(res == "ok"){
+                $("#contenedor").html(plantilla_check_out_2);
+                $("#aceptar_paso_2").click(
+                    enviar_datos_paso2
+                )
+            }else{
+                alert(res)
+            }
+        })
+
+    }//end enviar_datos_paso1
+
+    function enviar_datos_paso2(){
+        //recogiendo datos introducidos
+        tipo_tarjeta = $("#tipo_tarjeta").val()
+        numero_tarjeta = $("#numero_tarjeta").val()
+        titular_tarjeta = $("#titular_tarjeta").val()
+        //validarlos
+
+
+        //mandarlos por el post
+        $.post("restPedidos/procesarPaso2",{
+            tarjeta: tipo_tarjeta,
+            numero: numero_tarjeta,
+            titular: titular_tarjeta
+        }).done(function (res){
+            //alert(res)
+            console.log(res)
+            //puedo usar la informacion recibida para mostrar lo necesario en el paso 3
+            $("#contenedor").html(Mustache.render(plantilla_check_out_3,res))
+            $("#boton_confirmar_pedido").click(
+                enviar_datos_paso3
+            )
+        })
+    }//end enviar datos paso2
+
+    function enviar_datos_paso3(){
+        $.post("restPedidos/procesarPaso3").done(
+            function (res){
+                alert(res)
+                if(res == "ok"){
+                    alert("pedido completado")
+                }
+            }
+        )
+    }//end enviar datos paso 3
+
     $("#pedidos").click(
         function(){
             alert("pedir los pedidos del usuario")

@@ -7,17 +7,34 @@
     <div class="formulario">
         <div>
             <h2 class="tarjeta-titulo">Productos del pedido</h2>
-            <p class="texto-suave">(por hacer...)</p>
+            <div>
+                {{#figuras}}
+                    <div class="p-10">
+                        {{TITULO_FIGURA}}<br>
+                        Precio/Unidad: {{PRECIO}} euros <br>
+                        cantidad: {{CANTIDAD}} <br>
+                    </div>
+                {{/figuras}}
+            </div>
         </div>
         <div>
             <h2 class="tarjeta-titulo">Datos de envío</h2>
+            <div>
+                nombre completo: {{nombreCompleto}}<br>
+                direccion: {{direccion}}<br>
+                provincia: {{provincia}}<br>
+            </div>
             <p class="texto-suave">(por hacer...)</p>
         </div>
         <div>
             <h2 class="tarjeta-titulo">Datos de pago</h2>
-            <p class="texto-suave">(por hacer...)</p>
+            <div>
+                tipo tarjeta: {{tipoTarjeta}}<br>
+                titular tarjeta: {{titularTarjeta}}<br>
+                numero tarjeta: {{numeroTarjeta}}<br>
+            </div>
         </div>
     </div>
 
-    <button class="btn self-start">Confirmar pedido</button>
+    <button id="boton_confirmar_pedido" class="btn self-start">Confirmar pedido</button>
 </div>
