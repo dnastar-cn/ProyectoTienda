@@ -1,0 +1,38 @@
+<div class="catalogo">
+{{#.}}
+
+<!-- esta es la nomenclatura de mustache.js
+ con esto indicamos que el html que haya aqui se pueda usar para aplicarlo sobre
+ cada elemento de un array-->
+
+    <div class="tarjeta-producto">
+
+        <div class="vitrina">
+            <img class="imagen-vitrina" src="mostrar_imagen?id={{ID}}" alt="{{TITULO}}">
+        </div>
+
+        <div class="tarjeta-info">
+            <h2 class="tarjeta-titulo">{{TITULO}}</h2>
+            <div class="tarjeta-datos">
+                <span>{{CATEGORIA}}</span>
+                <span class="tarjeta-precio">{{PRECIO}} €</span>
+            </div>
+        </div>
+
+        <div class="tarjeta-acciones">
+            <div class="tarjeta-datos">
+                <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">詳細を見る</a>
+                <label>
+                    数量
+                    <input class="input input-cantidad" type="number" value="1">
+                </label>
+            </div>
+            <a href="#" class="btn w-full text-center" onclick="agregarProductoCarrito({{ID}})">カートに追加</a>
+        </div>
+
+    </div>
+
+
+{{/.}}
+
+</div>

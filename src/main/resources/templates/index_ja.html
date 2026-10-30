@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>オンラインストア</title>
+
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+
+    <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
+    <script src="librerias_js/mustache.js"></script>
+
+
+
+</head>
+<body>
+
+<a class="underline" href="admin/inicioAdmin" th:text="#{acceso.admin}">管理画面へ</a>
+
+<div th:replace="~{fragments/general.html :: idiomas}"></div>
+
+
+<!--la parte publica sera una SPA
+el javascript de esta unica pagina gestionara todo lo que el usuario necesite
+-->
+
+
+<div th:text="#{publica.bienvenida}">
+    ストアの公開エリアへようこそ
+</div>
+
+
+<div class="usuario-actual" id="usuarioActual" th:text="#{usuario.no_identificado}">
+    ログインしていません
+</div>
+
+<div class="menu-principal">
+    <!--    <a href="#" style="margin: 10px;" id="inicio">INICIO </a>-->
+    <div class="enlace-figuras">
+        <a href="#"  id="figuras" th:text="#{menu.figuras}">フィギュア</a>
+    </div>
+    <div class="enlace-registrarme">
+        <a href="#"  id="registrarme" th:text="#{menu.registrarme}">新規登録</a>
+    </div>
+    <div class="enlace-identificarme">
+        <a href="#"  id="identificarme" th:text="#{menu.identificarme}">ログイン</a>
+    </div>
+    <div class="enlace-carrito">
+        <a href="#"  id="carrito" th:text="#{menu.carrito}">カート</a>
+    </div>
+    <div class="enlace-pedidos">
+        <a href="#"  id="pedidos" th:text="#{menu.pedidos}">注文履歴</a>
+    </div>
+    <div class="enlace-mis_datos">
+        <a href="#"  id="mis_datos" th:text="#{menu.mis_datos}">マイ情報</a>
+    </div>
+    <div class="enlace-cerrar_sesion">
+        <a href="#"  id="cerrar_sesion" th:text="#{menu.cerrar_sesion}">ログアウト</a>
+    </div>
+</div>
+
+<div id="contenedor">
+
+</div>
+
+<script src="librerias_js/jquery.js"></script>
+
+<script>
+    //variable global con el idioma de esta pagina
+    //aplicacion.js la usa para cargar las plantillas de plantillas_html_ja
+    idioma_actual = "ja"
+</script>
+
+<script src="javascript/aplicacion.js"></script>
+
+</body>
+</html>

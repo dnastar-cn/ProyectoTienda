@@ -1,0 +1,40 @@
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Order summary</h1>
+        <p class="texto-suave">Checkout · step 3 of 3</p>
+    </div>
+
+    <div class="formulario">
+        <div>
+            <h2 class="tarjeta-titulo">Order items</h2>
+            <div>
+                {{#figuras}}
+                    <div class="p-10">
+                        {{TITULO_FIGURA}}<br>
+                        Unit price: {{PRECIO}} euros <br>
+                        quantity: {{CANTIDAD}} <br>
+                    </div>
+                {{/figuras}}
+            </div>
+        </div>
+        <div>
+            <h2 class="tarjeta-titulo">Shipping details</h2>
+            <div>
+                full name: {{nombreCompleto}}<br>
+                address: {{direccion}}<br>
+                province: {{provincia}}<br>
+            </div>
+            <p class="texto-suave">(to do...)</p>
+        </div>
+        <div>
+            <h2 class="tarjeta-titulo">Payment details</h2>
+            <div>
+                card type: {{tipoTarjeta}}<br>
+                cardholder: {{titularTarjeta}}<br>
+                card number: {{numeroTarjeta}}<br>
+            </div>
+        </div>
+    </div>
+
+    <button id="boton_confirmar_pedido" class="btn self-start">Confirm order</button>
+</div>
