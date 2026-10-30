@@ -1,0 +1,27 @@
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">お支払い情報</h1>
+        <p class="texto-suave">ご注文手続き · ステップ 2/3</p>
+    </div>
+
+    <div class="formulario">
+        <label class="campo">
+            カードの種類
+            <select id="tipo_tarjeta" class="input">
+                <option value="0">種類を選択</option>
+                <option value="visa">VISA</option>
+                <option value="master_card">MASTER CARD</option>
+            </select>
+        </label>
+        <label class="campo">
+            カード番号
+            <input type="text" id="numero_tarjeta" class="input" />
+        </label>
+        <label class="campo">
+            カード名義人
+            <input type="text" id="titular_tarjeta" class="input" />
+        </label>
+    </div>
+
+    <button id="aceptar_paso_2" class="btn self-start">次へ</button>
+</div>
