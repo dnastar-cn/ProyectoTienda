@@ -52,6 +52,12 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
     }
 
     @Override
+    public List<Figura> obtenerFigurasPorTitulo(String titulo) {
+        return entityManager.createQuery("select f from Figura f where lower(f.titulo) like lower(:titulo) ").setParameter("titulo", "%" + titulo + "%").getResultList();
+
+    }
+
+    @Override
     public Figura obtenerFiguraPorId(long id) {
         return entityManager.find(Figura.class, id);
     }

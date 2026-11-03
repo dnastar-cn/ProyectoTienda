@@ -25,8 +25,8 @@ public class ControladorFiguras {
     private ServicioCategorias servicioCategorias;
 
     @RequestMapping("gestionarFiguras")
-    public String gestionarFiguras(Model model){
-        model.addAttribute("figuras",servicioFiguras.obtenerFiguras());
+    public String gestionarFiguras(@RequestParam(name ="titulo",defaultValue = "") String titulo, Model model){
+        model.addAttribute("figuras",servicioFiguras.obtenerFigurasPorTitulo(titulo));
         return "admin/gestionar_productos";
     }
 
@@ -68,7 +68,7 @@ public class ControladorFiguras {
 
         servicioFiguras.borrarFigura(id);
 
-        return gestionarFiguras(model);
+        return gestionarFiguras("",model);
     }
 
     @RequestMapping("editarFigura")
@@ -96,7 +96,7 @@ public class ControladorFiguras {
             return "admin/editar_producto";
         }else {
             servicioFiguras.guardarCambiosFigura(figuraEditar);
-            return gestionarFiguras(model);
+            return gestionarFiguras("",model);
         }
     }
 
