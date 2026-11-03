@@ -12,6 +12,8 @@ public interface ServicioFiguras {
 
      List<Figura> obtenerFiguras();
 
+     List<Figura> obtenerFigurasPorTitulo(String titulo);
+
      Figura obtenerFiguraPorId(long id);
 
      void borrarFigura(long id) throws Exception;
