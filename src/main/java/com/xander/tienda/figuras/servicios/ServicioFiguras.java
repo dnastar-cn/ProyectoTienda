@@ -20,7 +20,9 @@ public interface ServicioFiguras {
 
      void guardarCambiosFigura(@Valid Figura figuraEditar) throws Exception;
 
-     List<Map<String, Object>> obtenerJSONfiguras();
+     List<Map<String, Object>> obtenerJSONfiguras(String titulo, int comienzo);
 
      Map<String,Object> obtenerJSONFiguraPorId(Long id);
+
+
 }

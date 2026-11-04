@@ -45,14 +45,58 @@ $("#inicio").click(
     }
 )
 
+titulo_a_buscar = "" //titulo en el buscador
+
+comienzo_resultados = 0
+
+
+
 function mostrar_figura(){
-    $.getJSON("restFiguras/listar").done(
+    $.getJSON("restFiguras/listar", { titulo: titulo_a_buscar, comienzo : comienzo_resultados}).done(
         function (json){
             //alert(json)
             console.log(json)
             //vamos a usar el json para listar los productos
-            resultadoMustache = Mustache.render(plantilla_productos, json)
+            resultadoMustache = Mustache.render(plantilla_productos, json.figuras)
+            totalFiguras = json.totalFiguras
             $("#contenedor").html(resultadoMustache)
+            $("#total_resultados").html(totalFiguras)
+            //vamos a ocultar el anterior o siguiente cuando no proceda
+            if(comienzo_resultados <= 0){
+                //en este caso ocultamos el anterior
+                $("#enlace_anterior").hide()
+            }else{
+                $("#enlace_anterior").show()
+            }
+
+            if ((comienzo_resultados+10)<totalFiguras){
+                //en este caso si queremos que aparezca siguiente
+                $("#enlace_siguiente").show()
+            }else{
+                $("#enlace_siguiente").hide()
+            }
+
+            //para no perder el titulo:
+            $("#titulo_buscador").val(titulo_a_buscar)
+            $("#titulo_buscador").focus()
+            //una vez volcado el contenido voy a decir como funcionan
+            //el buscador, el ant/sig y el span de total resultados
+            $("#titulo_buscador").keyup(
+                function (){
+                    //segun el usuario escriba en el buscador lo que escriba lo guardo en la variable en el titulo a buscar
+                    //invoco de nuevo al mostrar videojuegos
+                    titulo_a_buscar = $(this).val()
+                    mostrar_figura()
+                    comienzo_resultados = 0
+                }
+            )//end keyup
+
+            $("#enlace_siguiente").click(
+                function (){
+                    comienzo_resultados += 10
+                    mostrar_figura()
+                }
+            )
         }
     )
 }//end mostrar_figura

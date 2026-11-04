@@ -96,7 +96,7 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
     }
 
     @Override
-    public List<Map<String, Object>> obtenerJSONfiguras() {
+    public List<Map<String, Object>> obtenerJSONfiguras(String titulo, int comienzo) {
         // con JPA hemos asociado categoria a producto
         // problema: el json recibido en portada no es correcto
         // solucion: dejar claro en una consulta a base de datos que informacion
@@ -112,6 +112,8 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
                 entityManager.createNativeQuery(
                         ConstantesSQL.SQL_OBTENER_FIGURAS_JSON
                 );
+        consulta.setParameter("titulo", "%" + titulo + "%");
+        consulta.setParameter("comienzo", comienzo);
         //usar la consulta directamente es mucho mas lioso
         //que lo siguiente
         NativeQueryImpl nativeQuery = (NativeQueryImpl) consulta;
@@ -123,5 +125,4 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
     public Map<String, Object> obtenerJSONFiguraPorId(Long id) {
         return (Map<String, Object>) ((NativeQueryImpl)entityManager.createNativeQuery(ConstantesSQL.SQL_OBTENER_FIGURA_JSON)).setParameter("id",id).setTupleTransformer(AliasToEntityMapResultTransformer.INSTANCE).getResultList().get(0);
     }
-
 }
