@@ -14,6 +14,7 @@ import org.hibernate.query.sql.internal.NativeQueryImpl;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,17 +33,20 @@ public class ServicioCarritoImplJPA implements ServicioCarrito {
         //esto da problemas
         //Carrito c = uBaseDatos.getCarrito();
         //esto es mas seguro:
-        Carrito c = entityManager.createQuery("SELECT c FROM Carrito c WHERE c.usuario.id = :idUsuario", Carrito.class)
+        List<Carrito> resCarrito = entityManager.createQuery("SELECT c FROM Carrito c WHERE c.usuario.id = :idUsuario", Carrito.class)
                 .setParameter("idUsuario", idUsuario)
-                .getSingleResult();
+                .getResultList();
 
-
-        if ( c == null ){
-            //si el usuario no tiene un carrito asociado, lo creamos
-            // y lo guardamos en BD
-            c = new Carrito();
-            c.setUsuario(uBaseDatos);
-            entityManager.persist(c);
+        Carrito c = null;
+        if (resCarrito.size() == 0) {
+            //el usuario no tiene carrito: lo creamos y lo guardamos en BD
+            Carrito nuevoCarrito = new Carrito();
+            nuevoCarrito.setUsuario(uBaseDatos);
+            entityManager.persist(nuevoCarrito);
+            c = nuevoCarrito;
+        } else {
+            //ya tiene carrito: usamos el que hay
+            c = resCarrito.get(0);
         }
         //ver si el producto que se quiere agregar ya esta en el carrito
         //si lo esta, hay que incrementar su cantidad
@@ -72,12 +76,40 @@ public class ServicioCarritoImplJPA implements ServicioCarrito {
 //        Usuario u = entityManager.find(Usuario.class, idUsuario)
 //         Carrito c = u.getCarrito();
         // ESTO MEJOR:
-        Carrito c = entityManager.createQuery(
-                "SELECT c FROM Carrito c WHERE c.usuario.id = :idUsuario", Carrito.class)
+
+        //esto peta cuando un usuario sin ningun producto añadido le da a carrito por el singleresult,
+        //porque abre el carrito sin haber añadido nada
+//        Carrito c = entityManager.createQuery(
+//                "SELECT c FROM Carrito c WHERE c.usuario.id = :idUsuario", Carrito.class)
+//                .setParameter("idUsuario", idUsuario)
+//                .getSingleResult();
+//        List<Map<String,Object>> res = null;
+//        if(c != null){
+//            Query query = entityManager.createNativeQuery(
+//                    ConstantesSQL.SQL_OBTENER_PRODUCTOS_CARRITO_JSON
+//            );
+//            query.setParameter("carrito_id", c.getId());
+//            //procesar la query
+//            NativeQueryImpl nativeQuery = (NativeQueryImpl) query;
+//            nativeQuery.setTupleTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+//            res = nativeQuery.getResultList();
+//        }
+//        return res;
+
+        //solucion: igual que en agregarProducto, uso getResultList()
+        //que devuelve una lista (vacia si no hay carrito) en vez de dar error
+        List<Carrito> resCarrito = entityManager.createQuery(
+                        "SELECT c FROM Carrito c WHERE c.usuario.id = :idUsuario", Carrito.class)
                 .setParameter("idUsuario", idUsuario)
-                .getSingleResult();
-        List<Map<String,Object>> res = null;
-        if(c != null){
+                .getResultList();
+
+        //si la lista esta vacia, el usuario aun no tiene carrito:
+        //devuelvo una lista vacia y el js mostrara "Tu carrito esta vacio"
+        List<Map<String,Object>> res = new ArrayList<>();
+
+        if(resCarrito.size() > 0){
+            //el usuario si tiene carrito: es el primero (y unico) de la lista
+            Carrito c = resCarrito.get(0);
             Query query = entityManager.createNativeQuery(
                     ConstantesSQL.SQL_OBTENER_PRODUCTOS_CARRITO_JSON
             );
