@@ -179,6 +179,15 @@ $("#identificarme").click(
 
 function mostrar_login(){
     $("#contenedor").html(plantilla_login_usuario)
+    //vamos a comprobar si hay alguna cookie en la info de identificacion
+    //mucho cuidado en guardar contraseña o informacion sin encriptar
+    if(typeof(Cookies.get("email")) != "undefined"){
+        $("#email").val(Cookies.get("email"))
+    }
+    if(typeof(Cookies.get("pass")) != "undefined"){
+        $("#pass").val(Cookies.get("pass"))
+    }
+
     //despues de mostrar la plantilla html de identificar usuario
     //vamos a decir que hacer cuando el usuario haga click en
     //Identificarme
@@ -198,8 +207,19 @@ function mostrar_login(){
                 nombre_login = res.split(",")[1]
                 //aprovechamos y listamos productos
                 alert("identificado correctamente, ya puedes agregar productos a carrito")
+                //una vez identificado correctamente
+                //miramos si la casilla de recordar datos esta avtiva
+                if($("#recordar_pass").prop("checked")){
+                    //guardar los datos de acceso en una coockie
+                    //un archivo que guarda el navegador
+                    //para cada sitio web
+                    Cookies.set("email",$("#email").val(), { expires: 100 })
+                    Cookies.set("pass",$("#pass").val(), { expires: 100 })
+                }
                 mostrar_figura()
-                $("#usuarioActual").html("Bienvenido " + nombre_login)
+                id_usuario = res.split(",")[2]
+                html_img = '<img class="avatar-usuario" src="mostrar_imagen_usuario?id=' + id_usuario + '" alt="Avatar de ' + nombre_login + '"/>'
+                $("#usuarioActual").html("Bienvenido " + nombre_login + html_img)
                 //ocultar los div de enlaces para usuarios no identificados
                 $(".enlace-registrarme").css("display","none")
                 $(".enlace-identificarme").css("display","none")
@@ -318,20 +338,16 @@ function enviar_datos_paso3(){
     )
 }//end enviar datos paso 3
 
-$("#pedidos").click(
-    function(){
-        alert("pedir los pedidos del usuario")
-    }
-)
-$("#mis_datos").click(
-    function(){
-        alert("pedir los datos del usuario")
-    }
-)
-$("#cerrar_sesion").click(
-    function(){
-        alert("cerrar la sesion del usuario")
-    }
-)
+$("#cerrar_sesion").click(cerrar_sesion)
+
+function cerrar_sesion(){
+    $.post("restUsuarios/cerrarSesion").done(
+        function(res){
+            if(res == "ok"){
+                location.reload()
+            }
+        }
+    )
+}
 
 mostrar_figura()

@@ -8,4 +8,5 @@ public interface ServicioUsuarios {
 
     Usuario obtenerUsuarioPorEmailYpass(String email, String pass);
 
+    Usuario obtenerUsuarioPorId(Long id);
 }

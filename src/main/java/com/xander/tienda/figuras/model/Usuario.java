@@ -9,6 +9,8 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
+    private byte[] avatar;
 
     private String nombre;
 
@@ -70,5 +72,13 @@ public class Usuario {
 
     public void setCarrito(Carrito carrito) {
         this.carrito = carrito;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 }
