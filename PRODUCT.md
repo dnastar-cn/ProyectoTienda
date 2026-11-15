@@ -30,8 +30,7 @@ Es un proyecto de clase para **aprender**: el éxito es que la web funcione y, s
 ## Capabilities and Constraints
 
 - Categorías actuales: Pokémon, Dragon Ball, Marvel, One Piece. Al crear la base de datos se cargan 10 figuras de ejemplo.
-- Datos de cada figura: título, precio, categoría, descripción, SKU, imagen de portada y un campo `plataforma`.
-- **Pendiente:** el campo `plataforma` viene del proyecto original (videojuegos) y se va a renombrar a otro concepto que aún no está decidido. No darle un significado en el diseño hasta entonces.
+- Datos de cada figura: título, precio, categoría, descripción, SKU, imagen de portada y **fabricante** (por ejemplo Bandai S.H.Figuarts, First 4 Figures, Pokémon Center). Es un dato que valora el coleccionista.
 - Stack: Java 17, Spring Boot, JPA, H2, Thymeleaf (admin), jQuery + Mustache (parte pública), Tailwind 4 por CDN.
 - Los rediseños solo cambian el aspecto: no se toca la lógica de Java ni el JavaScript (registro, login, carrito).
 - Los errores heredados del código del profe no se corrigen salvo que se pida.

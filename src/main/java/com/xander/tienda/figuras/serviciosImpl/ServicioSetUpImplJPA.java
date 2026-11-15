@@ -59,70 +59,70 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
             entityManager.persist(cOnePiece);
             //productos
             //el primer registro tendra id 1
-            Figura fPikachu = new Figura("Pikachu", "La mascota eléctrica más famosa", 19.95, "Anime");
+            Figura fPikachu = new Figura("Pikachu", "La mascota eléctrica más famosa", 19.95, "Pokémon Center");
             fPikachu.setSku("FIG-0001");
             fPikachu.setCategoria(cPokemon);
             fPikachu.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/1.jpg"));
             entityManager.persist(fPikachu);
 
-            Figura fCharizard = new Figura("Charizard", "Dragón de fuego en pose de ataque", 34.50, "Anime");
+            Figura fCharizard = new Figura("Charizard", "Dragón de fuego en pose de ataque", 34.50, "First 4 Figures");
             fCharizard.setSku("FIG-0002");
             fCharizard.setCategoria(cPokemon);
             fCharizard.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/2.jpg"));
             entityManager.persist(fCharizard);
 
-            Figura fGoku = new Figura("Goku Super Saiyan", "Goku transformado lanzando un Kamehameha", 39.90, "Anime");
+            Figura fGoku = new Figura("Goku Super Saiyan", "Goku transformado lanzando un Kamehameha", 39.90, "Bandai S.H.Figuarts");
             fGoku.setSku("FIG-0003");
             fGoku.setCategoria(cDragonBall);
             fGoku.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/3.jpg"));
             entityManager.persist(fGoku);
 
-            Figura fVegeta = new Figura("Vegeta", "El príncipe de los Saiyans", 37.00, "Anime");
+            Figura fVegeta = new Figura("Vegeta", "El príncipe de los Saiyans", 37.00, "Bandai S.H.Figuarts");
             fVegeta.setSku("FIG-0004");
             fVegeta.setCategoria(cDragonBall);
             fVegeta.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/4.jpg"));
             entityManager.persist(fVegeta);
 
-            Figura fSpiderman = new Figura("Spider-Man", "El trepamuros colgado de su telaraña", 29.99, "Cine");
+            Figura fSpiderman = new Figura("Spider-Man", "El trepamuros colgado de su telaraña", 29.99, "Bandai S.H.Figuarts");
             fSpiderman.setSku("FIG-0005");
             fSpiderman.setCategoria(cMarvel);
             fSpiderman.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/5.jpg"));
             entityManager.persist(fSpiderman);
 
-            Figura fIronMan = new Figura("Iron Man", "Tony Stark con la armadura Mark 85", 45.00, "Cine");
+            Figura fIronMan = new Figura("Iron Man", "Tony Stark con la armadura Mark 85", 45.00, "Bandai S.H.Figuarts");
             fIronMan.setSku("FIG-0006");
             fIronMan.setCategoria(cMarvel);
             fIronMan.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/6.jpg"));
             entityManager.persist(fIronMan);
 
-            Figura fLuffy = new Figura("Monkey D Luffy Gear 5", "Luffy en su forma más poderosa", 49.95, "Anime");
+            Figura fLuffy = new Figura("Monkey D Luffy Gear 5", "Luffy en su forma más poderosa", 49.95, "Bandai S.H.Figuarts");
             fLuffy.setSku("FIG-0007");
             fLuffy.setCategoria(cOnePiece);
             fLuffy.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/7.jpg"));
             entityManager.persist(fLuffy);
 
-            Figura fZoro = new Figura("Roronoa Zoro", "El espadachín de las tres espadas", 42.00, "Anime");
+            Figura fZoro = new Figura("Roronoa Zoro", "El espadachín de las tres espadas", 42.00, "Bandai S.H.Figuarts");
             fZoro.setSku("FIG-0008");
             fZoro.setCategoria(cOnePiece);
             fZoro.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/8.jpg"));
             entityManager.persist(fZoro);
 
-            Figura fMewtwo = new Figura("Mewtwo", "El Pokémon legendario creado en un laboratorio", 32.00, "Anime");
+            Figura fMewtwo = new Figura("Mewtwo", "El Pokémon legendario creado en un laboratorio", 32.00, "Jazwares");
             fMewtwo.setSku("FIG-0009");
             fMewtwo.setCategoria(cPokemon);
             fMewtwo.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/9.jpg"));
             entityManager.persist(fMewtwo);
 
-            Figura fThanos = new Figura("Thanos", "El titán loco con el guantelete del infinito", 55.00, "Cine");
+            Figura fThanos = new Figura("Thanos", "El titán loco con el guantelete del infinito", 55.00, "Bandai S.H.Figuarts");
             fThanos.setSku("FIG-0010");
             fThanos.setCategoria(cMarvel);
             fThanos.setImagenPortada(leerImagenInicial(
@@ -166,6 +166,24 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
             );
             servicioPedidos.confirmarPedido(u1.getId());
             //ya tenemos un pedido en bd :)
+
+            //registrar 100 productos de prueba,para probar paginacion
+            String titulo = "Figura ";
+            double precio = 1;
+            String descripcion = "Producto de prueba para test";
+            for(int i=0;i<100;i++){
+                Figura fNuevo = new Figura();
+                fNuevo.setTitulo(titulo + i);
+                fNuevo.setFabricante("prueba");
+                fNuevo.setPrecio(precio);
+                fNuevo.setDescripcion(descripcion + " " + i);
+                fNuevo.setCategoria(cDragonBall);
+                fNuevo.setImagenPortada(leerImagenInicial(
+                        "http://localhost:8080/imagenes_productos_iniciales/default.jpg"));
+
+                entityManager.persist(fNuevo);
+            }
+
 
             //una vez realizados los registros iniciales
             //guardo en registro en la tabla Configuracion

@@ -12,10 +12,17 @@
 <br>
     buscador:
     <form action="gestionarFiguras">
-        titulo: <input type="text" name="titulo">
+        titulo: <input type="text" name="titulo" th:value="${titulo}">
         <input type="submit" value="buscar">
     </form>
 <br>
+total resultados <span th:text="${total}"></span>
+<div>
+    <a th:if="${ anterior >= 0 }" th:href=" @{ ${ 'gestionarFiguras?comienzo=' + anterior + '&titulo=' + titulo } } ">ANTERIOR</a>
+
+    <a th:if="${ siguiente < total }" th:href=" @{ ${ 'gestionarFiguras?comienzo=' + siguiente + '&titulo=' + titulo } } ">SIGUIENTE</a>
+
+</div>
 
 
 <div>listar productos, permitiendo borrar y editar</div>
@@ -30,7 +37,7 @@
     <br>
     <img th:src="@{${ '../mostrar_imagen?id=' + f.id }}" height="80px"/>
     <br>
-    plataforma: <span th:text="${f.plataforma}"></span>
+    fabricante: <span th:text="${f.fabricante}"></span>
     <br>
     descripcion: <span th:text="${f.descripcion}"></span>
     <br>
