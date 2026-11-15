@@ -260,6 +260,9 @@ function mostrar_productos_carrito(){
             // usar la plantilla carrito para mostrar el json recibido
             html = Mustache.render(plantilla_carrito, res)
             $("#contenedor").html(html)
+            if(res.length == 0){
+                $("#realizar_pedido").hide()
+            }
             $("#realizar_pedido").click(
                 mostrar_check_out_paso_1
             )
@@ -282,6 +285,9 @@ function enviar_datos_paso1(){
     provincia = $("#campo_provincia").val()
 
     //validaciones...
+    if( ! validarNombre(nombreCompleto) ){
+        return
+    }
 
     $.post("restPedidos/procesarPaso1",
         {
@@ -330,9 +336,12 @@ function enviar_datos_paso2(){
 function enviar_datos_paso3(){
     $.post("restPedidos/procesarPaso3").done(
         function (res){
-            alert(res)
             if(res == "ok"){
-                alert("pedido completado")
+                confetti()
+                alert("Pedido completado! puedes seguir comprando")
+                mostrar_figura()
+            }else{
+                alert(res)
             }
         }
     )
