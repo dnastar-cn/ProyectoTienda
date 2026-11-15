@@ -32,8 +32,9 @@ public class FigurasREST {
     // vamos a tomar más control en devolver el json con el
     // listado de figuras
     @RequestMapping("listar")
-    public List<Map<String,Object>> listar(
-            @RequestParam(name = "titulo", defaultValue = "") String titulo,@RequestParam(name = "comienzo",defaultValue = "0") Integer comienzo){
+    public InfoFiguras listar(
+            @RequestParam(name = "titulo", defaultValue = "") String titulo,
+            @RequestParam(name = "comienzo",defaultValue = "0") Integer comienzo){
 
         int totalFiguras = servicioFiguras.obtenerTotalFiguras(titulo);
         List<Map<String,Object>> figuras = servicioFiguras.obtenerJSONfiguras(titulo,comienzo);
@@ -41,6 +42,7 @@ public class FigurasREST {
         //para ello vamos a crear un nuevo tipo de dato
         InfoFiguras info = new InfoFiguras();
         info.setTotalFiguras(totalFiguras);
+        info.setFiguras(figuras);
         return info;
 
        // return servicioFiguras.obtenerJSONfiguras( titulo, comienzo );

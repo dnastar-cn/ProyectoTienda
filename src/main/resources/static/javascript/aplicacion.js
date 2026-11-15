@@ -86,10 +86,19 @@ function mostrar_figura(){
                     //segun el usuario escriba en el buscador lo que escriba lo guardo en la variable en el titulo a buscar
                     //invoco de nuevo al mostrar videojuegos
                     titulo_a_buscar = $(this).val()
-                    mostrar_figura()
                     comienzo_resultados = 0
+                    mostrar_figura()
+
                 }
             )//end keyup
+
+            $("#enlace_anterior").click(
+                function (){
+                    comienzo_resultados -= 10
+                    mostrar_figura()
+                }
+            )
+
 
             $("#enlace_siguiente").click(
                 function (){

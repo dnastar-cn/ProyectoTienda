@@ -21,8 +21,8 @@ public class Figura {
     @Max(value = 99999, message = "El precio maximo es este 99999 euros ")
     private double precio;
 
-    @NotNull(message = "debes indicar un precio")
-    private String plataforma;
+    @NotNull(message = "debes indicar un fabricante")
+    private String fabricante;
     private String descripcion;
 
     private String sku; //stock keeping unit //numero de control del producto
@@ -57,7 +57,7 @@ public class Figura {
 
     }
 
-    public Figura(String titulo, double precio, String plataforma, String descripcion, long id) {
+    public Figura(String titulo, double precio, String fabricante, String descripcion, long id) {
 
         //una forma muy comoda para hacer validaciones
         //es usar un standar que se llama JSR 303
@@ -68,16 +68,16 @@ public class Figura {
 
         this.titulo = titulo;
         this.precio = precio;
-        this.plataforma = plataforma;
+        this.fabricante = fabricante;
         this.descripcion = descripcion;
         this.id = id;
     }
 
-    public Figura(String titulo, String descripcion, double precio, String plataforma) {
+    public Figura(String titulo, String descripcion, double precio, String fabricante) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.plataforma = plataforma;
+        this.fabricante = fabricante;
     }
 
     public String getTitulo() {
@@ -96,12 +96,12 @@ public class Figura {
         this.precio = precio;
     }
 
-    public String getPlataforma() {
-        return plataforma;
+    public String getFabricante() {
+        return fabricante;
     }
 
-    public void setPlataforma(String plataforma) {
-        this.plataforma = plataforma;
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
     }
 
     public String getDescripcion() {
@@ -165,7 +165,7 @@ public class Figura {
         return "figura{" +
                 "titulo='" + titulo + '\'' +
                 ", precio=" + precio +
-                ", plataforma='" + plataforma + '\'' +
+                ", fabricante='" + fabricante + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", id=" + id +
                 '}';

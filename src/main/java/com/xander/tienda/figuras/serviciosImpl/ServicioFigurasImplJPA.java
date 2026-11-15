@@ -58,6 +58,11 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
     }
 
     @Override
+    public List<Figura> obtenerFigurasPorTituloYcomienzoYfin(String titulo, int comienzo, int resultadoPorPagina) {
+        return entityManager.createQuery("select f from Figura f where lower(f.titulo) like lower(:titulo) ").setParameter("titulo", "%" + titulo + "%").setFirstResult(comienzo).setMaxResults(resultadoPorPagina).getResultList();
+    }
+
+    @Override
     public Figura obtenerFiguraPorId(long id) {
         return entityManager.find(Figura.class, id);
     }
@@ -124,5 +129,12 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
     @Override
     public Map<String, Object> obtenerJSONFiguraPorId(Long id) {
         return (Map<String, Object>) ((NativeQueryImpl)entityManager.createNativeQuery(ConstantesSQL.SQL_OBTENER_FIGURA_JSON)).setParameter("id",id).setTupleTransformer(AliasToEntityMapResultTransformer.INSTANCE).getResultList().get(0);
+    }
+
+    @Override
+    public int obtenerTotalFiguras(String titulo) {
+        Query q = entityManager.createNativeQuery(ConstantesSQL.SQL_OBTENER_TOTAL_FIGURAS);
+        q.setParameter("titulo", "%" + titulo.toLowerCase() + "%");
+        return  Integer.parseInt(q.getSingleResult().toString());
     }
 }

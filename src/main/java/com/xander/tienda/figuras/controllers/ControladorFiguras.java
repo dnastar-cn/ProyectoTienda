@@ -25,8 +25,14 @@ public class ControladorFiguras {
     private ServicioCategorias servicioCategorias;
 
     @RequestMapping("gestionarFiguras")
-    public String gestionarFiguras(@RequestParam(name ="titulo",defaultValue = "") String titulo, Model model){
-        model.addAttribute("figuras",servicioFiguras.obtenerFigurasPorTitulo(titulo));
+    public String gestionarFiguras(@RequestParam(name ="titulo",defaultValue = "") String titulo, @RequestParam(value = "comienzo",defaultValue = "0") Integer comienzo, Model model){
+        model.addAttribute("figuras",servicioFiguras.obtenerFigurasPorTituloYcomienzoYfin(titulo,comienzo,10));
+        //vamos a pasarle la variable comienzo para que la vista
+        //sepa como formar el enlace siguiente
+        model.addAttribute("siguiente",comienzo + 10);
+        model.addAttribute("anterior",comienzo - 10);
+        model.addAttribute("total", servicioFiguras.obtenerTotalFiguras(titulo));
+        model.addAttribute("titulo",titulo);
         return "admin/gestionar_productos";
     }
 
@@ -68,7 +74,7 @@ public class ControladorFiguras {
 
         servicioFiguras.borrarFigura(id);
 
-        return gestionarFiguras("",model);
+        return gestionarFiguras("",0,model);
     }
 
     @RequestMapping("editarFigura")
@@ -96,8 +102,8 @@ public class ControladorFiguras {
             return "admin/editar_producto";
         }else {
             servicioFiguras.guardarCambiosFigura(figuraEditar);
-            return gestionarFiguras("",model);
+            return gestionarFiguras("",0,model);
         }
-    }
+}
 
 }//end class
