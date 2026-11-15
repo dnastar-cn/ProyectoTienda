@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -23,7 +25,8 @@ public class UsuariosREST {
     private ServicioUsuarios servicioUsuarios;
 
     @RequestMapping("registrarUsuario")
-    public String registrarUsuario(@RequestParam Map<String,Object> formData){
+    public String registrarUsuario(@RequestParam Map<String,Object> formData,
+                                   MultipartHttpServletRequest multipartRequest){
         System.out.println("recibido form data: " + formData);
         //formData tiene la info del usuario a registrar
         //pues vamos a registrarlo
@@ -32,6 +35,12 @@ public class UsuariosREST {
         Gson gson = new Gson();
         JsonElement json = gson.toJsonTree(formData);
         Usuario u = gson.fromJson(json, Usuario.class);
+        //extraigo del form data la imagen para asignarla al avatar del usuario
+        try {
+            u.setAvatar(multipartRequest.getFile("avatar").getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         servicioUsuarios.registrarUsuario(u);
         return "te has registrado correctamente, ya puedes identificarte";
@@ -52,11 +61,16 @@ public class UsuariosREST {
         String respuesta = "";
         if( u != null ){
             request.getSession().setAttribute("usuario_identificado", u );
-            respuesta = "ok," + u.getNombre() ;
+            respuesta = "ok," + u.getNombre() + "," + u.getId() ;
         }else{
             respuesta = "email o pass incorrectos";
         }
         return respuesta;
     }
 
+    @RequestMapping("cerrarSesion")
+    public String cerrarSesion(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "ok";
+    }
 }

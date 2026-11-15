@@ -39,4 +39,9 @@ public class ServicioUsuariosImplJPA implements ServicioUsuarios {
         }
         return res.get(0);
     }
+
+    @Override
+    public Usuario obtenerUsuarioPorId(Long id) {
+        return entityManager.find(Usuario.class, id);
+    }
 }

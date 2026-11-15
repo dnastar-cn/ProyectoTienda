@@ -35,5 +35,31 @@ Nº de Tarjeta: <span th:text="${pedido.numeroTarjeta}" ></span><br>
 </div>
 
 
+<input type = "hidden" id="id_pedido" th:field = "${pedido.id}">
+<select id="select_estado" th:field="${pedido.estado}">
+    <option th:each="e : ${estados}" th:text="${e.value}" th:value="${e.key}" ></option>
+</select>
+
+<script src="../librerias_js/jquery.js"></script>
+<script>
+    $("#select_estado").change(
+        function(){
+            estado_seleccionado = $(this).find(":selected").val();
+            id_pedido = $("#id_pedido").val();
+            $.post("restPedido/actualizarEstadoPedido",
+                {
+                    id : id_pedido,
+                    estado: estado_seleccionado
+                }).done(function(res){
+                    if(res != "ok"){
+                        alert(res);
+                    }else{
+                        alert("estado actualizado");
+                    }
+            })
+        })
+
+</script>
+
 </body>
 </html>
