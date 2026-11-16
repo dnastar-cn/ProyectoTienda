@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nueva categoría</title>
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+</head>
+<body>
+
+<div th:insert="fragments/general.html :: menu"></div>
+
+<main class="pagina">
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Nueva categoría</h1>
+        <p class="texto-suave">Introduce los datos de la nueva categoría.</p>
+    </div>
+
+    <form action="#" th:action="guardarCategoria" th:object="${nueva}" method="post" class="panel formulario">
+        <label class="campo">
+            Nombre
+            <input type="text" th:field="*{nombre}" class="input">
+            <span class="mensaje-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+        </label>
+        <label class="campo">
+            Descripción
+            <input type="text" th:field="*{descripcion}" class="input">
+        </label>
+        <input class="btn" type="submit" value="Registrar">
+    </form>
+</div>
+</main>
+
+</body>
+</html>

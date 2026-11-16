@@ -1,0 +1,28 @@
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Mis datos</h1>
+        <p class="texto-suave">Puedes cambiar tu nombre, tu email o tu contraseña.</p>
+    </div>
+
+    <p id="mis_datos_ok" class="aviso-exito hidden">Tus datos se han guardado.</p>
+    <p id="mis_datos_error" class="aviso-error hidden"></p>
+
+    <form id="form_mis_datos" class="panel formulario">
+        <img class="avatar-usuario ml-0 w-14 h-14" src="mostrar_imagen_usuario?id={{id}}" alt="Avatar de {{nombre}}" onerror="this.remove()"/>
+
+        <label class="campo">
+            Nombre
+            <input type="text" id="mis_datos_nombre" class="input" value="{{nombre}}" required minlength="2" autocomplete="name">
+        </label>
+        <label class="campo">
+            Email
+            <input type="email" id="mis_datos_email" class="input" value="{{email}}" required autocomplete="email">
+        </label>
+        <label class="campo">
+            Nueva contraseña
+            <input type="password" id="mis_datos_pass" class="input" placeholder="Déjala vacía para no cambiarla" autocomplete="new-password">
+        </label>
+
+        <input type="submit" value="Guardar cambios" class="btn">
+    </form>
+</div>

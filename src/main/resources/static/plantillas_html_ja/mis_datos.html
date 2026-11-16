@@ -1,0 +1,28 @@
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">マイ情報</h1>
+        <p class="texto-suave">名前、メールアドレス、パスワードを変更できます。</p>
+    </div>
+
+    <p id="mis_datos_ok" class="aviso-exito hidden">情報を保存しました。</p>
+    <p id="mis_datos_error" class="aviso-error hidden"></p>
+
+    <form id="form_mis_datos" class="panel formulario">
+        <img class="avatar-usuario ml-0 w-14 h-14" src="mostrar_imagen_usuario?id={{id}}" alt="{{nombre}} のアバター" onerror="this.remove()"/>
+
+        <label class="campo">
+            名前
+            <input type="text" id="mis_datos_nombre" class="input" value="{{nombre}}" required minlength="2" autocomplete="name">
+        </label>
+        <label class="campo">
+            メールアドレス
+            <input type="email" id="mis_datos_email" class="input" value="{{email}}" required autocomplete="email">
+        </label>
+        <label class="campo">
+            新しいパスワード
+            <input type="password" id="mis_datos_pass" class="input" placeholder="変更しない場合は空のまま" autocomplete="new-password">
+        </label>
+
+        <input type="submit" value="変更を保存" class="btn">
+    </form>
+</div>

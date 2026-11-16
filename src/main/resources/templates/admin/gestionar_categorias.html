@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Categorías</title>
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+</head>
+<body>
+
+<div th:insert="fragments/general.html :: menu"></div>
+
+<main class="pagina pb-12">
+
+    <div class="admin-titulo">
+        <h1 class="titulo-seccion">Categorías</h1>
+        <a href="registrarCategoria" class="btn">Nueva categoría</a>
+    </div>
+
+    <p class="aviso-error mb-4" th:if="${error != null}" th:text="${error}"></p>
+
+    <!-- listar categorias, permitiendo borrar y editar -->
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th class="text-right">Figuras</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${categorias}">
+                <td class="font-medium" th:text="${c.nombre}"></td>
+                <td class="text-texto-suave" th:text="${c.descripcion}"></td>
+                <td class="text-right tabular-nums" th:text="${c.figuras.size()}"></td>
+                <td>
+                    <div class="acciones-fila">
+                        <a class="enlace" th:href="@{${ 'editarCategoria?id=' + c.id }}">Editar</a>
+                        <a class="enlace-peligro" th:href="@{${ 'borrarCategoria?id=' + c.id }}" onclick="return confirmar(this, '¿Seguro que quieres borrar esta categoría?')">Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<div th:replace="~{fragments/general.html :: confirmar}"></div>
+
+</body>
+</html>

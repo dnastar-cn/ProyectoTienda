@@ -1,0 +1,60 @@
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">ご注文内容の確認</h1>
+        <p class="texto-suave">ご注文手続き · ステップ 4/4</p>
+    </div>
+
+    <div class="panel formulario">
+        <div class="bloque-resumen">
+            <h2 class="subtitulo">注文商品</h2>
+            {{#figuras}}
+                <div class="flex items-center gap-3">
+                    <div class="vitrina vitrina-mini w-14">
+                        <img class="imagen-vitrina" src="mostrar_imagen?id={{FIGURA_ID}}" alt="{{TITULO}}">
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium">{{TITULO}}</p>
+                        <p class="texto-suave">数量: {{CANTIDAD}}</p>
+                    </div>
+                    <p class="tarjeta-precio">{{PRECIO}} €</p>
+                </div>
+            {{/figuras}}
+        </div>
+
+        <div class="bloque-resumen">
+            <h2 class="subtitulo">配送先</h2>
+            <dl class="ficha">
+                <dt>氏名</dt>
+                <dd>{{nombreCompleto}}</dd>
+                <dt>住所</dt>
+                <dd>{{direccion}}</dd>
+                <dt>市区町村</dt>
+                <dd>{{localidad}}</dd>
+                <dt>郵便番号</dt>
+                <dd>{{codigoPostal}}</dd>
+                <dt>県</dt>
+                <dd>{{provincia}}</dd>
+                <dt>電話番号</dt>
+                <dd>{{telefono}}</dd>
+                <dt>配送方法</dt>
+                <dd>{{metodoEnvio}}</dd>
+            </dl>
+        </div>
+
+        <div class="bloque-resumen">
+            <h2 class="subtitulo">お支払い</h2>
+            <dl class="ficha">
+                <dt>カード</dt>
+                <dd class="uppercase">{{tipoTarjeta}}</dd>
+                <dt>名義人</dt>
+                <dd>{{titularTarjeta}}</dd>
+                <dt>カード番号</dt>
+                <dd class="tabular-nums">{{numeroTarjeta}}</dd>
+                <dt>有効期限</dt>
+                <dd class="tabular-nums">{{caducidadTarjeta}}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <button id="boton_confirmar_pedido" class="btn self-start">注文を確定する</button>
+</div>
