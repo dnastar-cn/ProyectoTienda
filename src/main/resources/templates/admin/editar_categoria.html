@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar categoría</title>
+    <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
+</head>
+<body>
+
+<div th:insert="fragments/general.html :: menu"></div>
+
+<main class="pagina">
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Editar categoría</h1>
+        <p class="texto-suave">Modifica los datos de la categoría.</p>
+    </div>
+
+    <form action="#" th:action="guardarCambiosCategoria" th:object="${categoriaEditar}" method="post" class="panel formulario">
+        <label class="campo">
+            Nombre
+            <input type="text" th:field="*{nombre}" class="input">
+            <span class="mensaje-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+        </label>
+        <label class="campo">
+            Descripción
+            <input type="text" th:field="*{descripcion}" class="input">
+        </label>
+        <input type="hidden" th:field="*{id}">
+        <input class="btn" type="submit" value="Guardar cambios">
+    </form>
+</div>
+</main>
+
+</body>
+</html>

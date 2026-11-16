@@ -1,0 +1,60 @@
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Order summary</h1>
+        <p class="texto-suave">Checkout · step 4 of 4</p>
+    </div>
+
+    <div class="panel formulario">
+        <div class="bloque-resumen">
+            <h2 class="subtitulo">Items</h2>
+            {{#figuras}}
+                <div class="flex items-center gap-3">
+                    <div class="vitrina vitrina-mini w-14">
+                        <img class="imagen-vitrina" src="mostrar_imagen?id={{FIGURA_ID}}" alt="{{TITULO}}">
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium">{{TITULO}}</p>
+                        <p class="texto-suave">Quantity: {{CANTIDAD}}</p>
+                    </div>
+                    <p class="tarjeta-precio">{{PRECIO}} €</p>
+                </div>
+            {{/figuras}}
+        </div>
+
+        <div class="bloque-resumen">
+            <h2 class="subtitulo">Shipping</h2>
+            <dl class="ficha">
+                <dt>Name</dt>
+                <dd>{{nombreCompleto}}</dd>
+                <dt>Address</dt>
+                <dd>{{direccion}}</dd>
+                <dt>Town / city</dt>
+                <dd>{{localidad}}</dd>
+                <dt>Postcode</dt>
+                <dd>{{codigoPostal}}</dd>
+                <dt>Province</dt>
+                <dd>{{provincia}}</dd>
+                <dt>Phone</dt>
+                <dd>{{telefono}}</dd>
+                <dt>Shipping method</dt>
+                <dd>{{metodoEnvio}}</dd>
+            </dl>
+        </div>
+
+        <div class="bloque-resumen">
+            <h2 class="subtitulo">Payment</h2>
+            <dl class="ficha">
+                <dt>Card</dt>
+                <dd class="uppercase">{{tipoTarjeta}}</dd>
+                <dt>Cardholder</dt>
+                <dd>{{titularTarjeta}}</dd>
+                <dt>Number</dt>
+                <dd class="tabular-nums">{{numeroTarjeta}}</dd>
+                <dt>Expiry date</dt>
+                <dd class="tabular-nums">{{caducidadTarjeta}}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <button id="boton_confirmar_pedido" class="btn self-start">Confirm order</button>
+</div>

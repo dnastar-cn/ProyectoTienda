@@ -1,0 +1,39 @@
+<div class="seccion">
+    <h1 class="titulo-seccion">注文履歴</h1>
+
+    {{#.}}
+    <article class="panel flex flex-col gap-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 class="subtitulo">注文番号 {{id}}</h2>
+            <span class="etiqueta-estado">{{estado}}</span>
+        </div>
+
+        <div class="flex flex-col gap-3">
+            {{#productos}}
+            <div class="flex items-center gap-3">
+                <div class="vitrina vitrina-mini w-14">
+                    <img class="imagen-vitrina" src="mostrar_imagen?id={{figuraId}}" alt="{{titulo}}">
+                </div>
+                <div class="flex-1">
+                    <p class="font-medium">{{titulo}}</p>
+                    <p class="texto-suave">数量: {{cantidad}}</p>
+                </div>
+                <p class="tarjeta-precio">{{precio}} €</p>
+            </div>
+            {{/productos}}
+        </div>
+
+        <div class="flex flex-wrap items-baseline justify-between gap-2 border-t border-borde pt-4">
+            <p class="texto-suave">配送: {{metodoEnvio}} · {{direccion}}, {{localidad}}</p>
+            <p class="font-semibold">合計: <span class="tabular-nums">{{total}} €</span></p>
+        </div>
+    </article>
+    {{/.}}
+
+    {{^.}}
+    <div class="panel flex flex-col items-center gap-3 py-10 text-center">
+        <p class="texto-suave">まだ注文はありません。</p>
+        <a href="#" class="btn" onclick="mostrar_figura()">フィギュアを見る</a>
+    </div>
+    {{/.}}
+</div>
