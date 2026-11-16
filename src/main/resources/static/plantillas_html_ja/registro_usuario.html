@@ -1,17 +1,29 @@
-<div>
-    登録情報を入力してください<br/>
-    <form id="form_registro_usuario">
-        <label for="nombre">名前:</label>
-        <input type="text" id="nombre" name="nombre" class="input" ><br/>
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">アカウント作成</h1>
+        <p class="texto-suave">登録情報を入力してください。</p>
+    </div>
 
-        <label for="email">メールアドレス:</label>
-        <input type="email" id="email" name="email"  class="input"><br/>
+    <form id="form_registro_usuario" class="panel formulario">
+        <label class="campo" for="nombre">
+            名前
+            <input type="text" id="nombre" name="nombre" class="input">
+        </label>
 
-        <label for="pass">パスワード:</label>
-        <input type="password" id="pass" name="pass"  class="input" /><br/>
+        <label class="campo" for="email">
+            メールアドレス
+            <input type="email" id="email" name="email" class="input">
+        </label>
 
-        <label for="avatar">アバター（任意）:</label>
-        <input type="file" id="avatar" name="avatar"  class="input"><br/><br/>
+        <label class="campo" for="pass">
+            パスワード
+            <input type="password" id="pass" name="pass" class="input" />
+        </label>
+
+        <label class="campo" for="avatar">
+            アバター（任意）
+            <input type="file" id="avatar" name="avatar" accept="image/*" class="text-sm file:mr-3 file:rounded-md file:border file:border-borde file:bg-superficie file:px-3 file:py-1.5 file:font-medium file:text-texto file:cursor-pointer">
+        </label>
 
         <button type="submit" class="btn">登録する</button>
     </form>

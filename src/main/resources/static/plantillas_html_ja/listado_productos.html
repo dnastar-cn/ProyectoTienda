@@ -1,3 +1,13 @@
+<!--buscador y paginacion -->
+<div class="barra-catalogo">
+    <input type="search" id="titulo_buscador" class="input buscador" placeholder="フィギュアを検索" aria-label="名前でフィギュアを検索"/>
+    <div class="paginacion">
+        <span><span id="total_resultados"></span> 件</span>
+        <a id="enlace_anterior" href="#" class="btn-secundario">← 前へ</a>
+        <a id="enlace_siguiente" href="#" class="btn-secundario">次へ →</a>
+    </div>
+</div>
+
 <div class="catalogo">
 {{#.}}
 
@@ -21,13 +31,13 @@
 
         <div class="tarjeta-acciones">
             <div class="tarjeta-datos">
-                <a href="#" class="underline" onclick="mostrar_detalles({{ID}})">詳細を見る</a>
+                <a href="#" class="enlace" onclick="mostrar_detalles({{ID}})">詳細を見る</a>
                 <label>
                     数量
-                    <input class="input input-cantidad" type="number" value="1">
+                    <input class="input input-cantidad" type="number" value="1" min="1" id="cantidad_{{ID}}">
                 </label>
             </div>
-            <a href="#" class="btn w-full text-center" onclick="agregarProductoCarrito({{ID}})">カートに追加</a>
+            <a href="#" class="btn w-full" onclick="agregarProductoCarrito({{ID}})">カートに追加</a>
         </div>
 
     </div>

@@ -1,10 +1,10 @@
 <div class="seccion seccion-estrecha">
     <div>
         <h1 class="titulo-seccion">配送先情報</h1>
-        <p class="texto-suave">ご注文手続き · ステップ 1/3</p>
+        <p class="texto-suave">ご注文手続き · ステップ 1/4</p>
     </div>
 
-    <div class="formulario">
+    <div class="panel formulario">
         <label class="campo">
             氏名
             <input type="text" id="campo_nombre" class="input" />
@@ -14,7 +14,8 @@
             <input type="text" id="campo_direccion" class="input" />
         </label>
         <label class="campo">
-            県:  <select required id="campo_provincia" name="provincia" class="form-control">
+            県
+            <select required id="campo_provincia" name="provincia" class="input">
             <option value="">県を選択してください</option>
             <option value="Álava/Araba">Álava/Araba</option>
             <option value="Albacete">Albacete</option>
@@ -70,7 +71,19 @@
             <option value="Zaragoza">Zaragoza</option>
         </select>
         </label>
+        <label class="campo">
+            市区町村
+            <input type="text" id="campo_localidad" class="input" />
+        </label>
+        <label class="campo">
+            郵便番号
+            <input type="text" id="campo_codigo_postal" class="input" inputmode="numeric" maxlength="5" />
+        </label>
+        <label class="campo">
+            電話番号
+            <input type="tel" id="campo_telefono" class="input" />
+        </label>
     </div>
 
-    <button id="aceptar_paso_1" class="btn self-start">次へ</button>
+    <button id="aceptar_paso_1" class="btn self-start">お支払いへ進む</button>
 </div>

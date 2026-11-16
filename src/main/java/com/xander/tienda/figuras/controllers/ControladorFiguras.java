@@ -58,6 +58,8 @@ public class ControladorFiguras {
         if(resultadoValidacion.hasErrors()){
             //si el figura tiene errores mandamos al usuario a
             // el formulario de nuevo
+            //hay que volver a mandar las categorias si no el select sale vacio
+            model.addAttribute("categorias", servicioCategorias.obtenerCategorias());
             return "admin/registro_producto";
 
         }
@@ -99,6 +101,8 @@ public class ControladorFiguras {
             BindingResult resultadoValidacion,
             Model model) throws Exception {  //model en estos metodos es para meterle lo que queramos que le llegue a la vista devuelta en el return
         if(resultadoValidacion.hasErrors()){
+            //hay que volver a mandar las categorias si no el select sale vacio
+            model.addAttribute("categorias", servicioCategorias.obtenerCategorias());
             return "admin/editar_producto";
         }else {
             servicioFiguras.guardarCambiosFigura(figuraEditar);

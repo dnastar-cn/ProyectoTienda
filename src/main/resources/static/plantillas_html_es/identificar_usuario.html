@@ -1,14 +1,22 @@
-<div>Introduce tus datos para identificarte</div>
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Iniciar sesión</h1>
+        <p class="texto-suave">Introduce tus datos para identificarte.</p>
+    </div>
 
-<form id="form_login">
-
-    email: <input type="email" name="email" id="email" class="input" value="pepe@gmail.com" />
-    <br/>
-    pass: <input type="password" name="pass" id="pass" class="input" value="123" />
-    <br/>
-    <input type="checkbox" id="recordar_pass"/>
-    recordar mis datos (por hacer...)
-    <br/>
-    <input type="submit" value="identificarme" class="btn"/>
-
-</form>
+    <form id="form_login" class="panel formulario">
+        <label class="campo">
+            Email
+            <input type="email" name="email" id="email" class="input" value="pepe@gmail.com" />
+        </label>
+        <label class="campo">
+            Contraseña
+            <input type="password" name="pass" id="pass" class="input" value="123" />
+        </label>
+        <label class="casilla">
+            <input type="checkbox" id="recordar_pass"/>
+            Recordar mis datos
+        </label>
+        <input type="submit" value="Iniciar sesión" class="btn"/>
+    </form>
+</div>

@@ -1,36 +1,38 @@
 
 <!--esto es otra plantilla para mustache-->
-<div class="text-center">
-    <div class="text-xl font-bold">
-        {{TITULO}}
+<div class="detalle">
+
+    <div class="vitrina">
+        <img class="imagen-vitrina" src="mostrar_imagen?id={{ID}}" alt="{{TITULO}}"/>
     </div>
 
-    <div class="m-2.5">
-        {{CATEGORIA}}
-    </div>
+    <div class="detalle-info">
+        <a href="#" class="enlace text-sm self-start" onclick="mostrar_figura()">← Volver al catálogo</a>
 
-    <div class="flex justify-center">
-        <img class="imagen-producto" src="mostrar_imagen?id={{ID}}"/>
-    </div>
+        <h1 class="titulo-seccion">{{TITULO}}</h1>
 
+        <p class="detalle-precio">{{PRECIO}} €</p>
 
+        <p>{{DESCRIPCION}}</p>
 
-    <div class="m-1.25">
-        {{DESCRIPCION}}
-    </div>
+        <dl class="ficha">
+            <dt>Categoría</dt>
+            <dd>{{CATEGORIA}}</dd>
+            <dt>Fabricante</dt>
+            <dd>{{FABRICANTE}}</dd>
+            <dt>Altura</dt>
+            <dd>{{ALTURA}} cm</dd>
+            <dt>Material</dt>
+            <dd>{{MATERIAL}}</dd>
+        </dl>
 
-    <div class="m-1.25">
-        precio: {{PRECIO}}
-    </div>
-
-    <div class="m-1.25">
-        fabricante: {{FABRICANTE}}
-    </div>
-
-    <div>
-    cantidad: <input class="input input-cantidad" type="number" value="1">
-    <br>
-    <a href="#" class="underline" onclick="alert('agregar cantidad a carrito')">agregar carrito</a>
+        <div class="detalle-comprar">
+            <label class="campo">
+                Cantidad
+                <input class="input input-cantidad" type="number" value="1" min="1" id="cantidad_{{ID}}">
+            </label>
+            <a href="#" class="btn" onclick="agregarProductoCarrito({{ID}})">Añadir al carrito</a>
+        </div>
     </div>
 
 </div>

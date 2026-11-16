@@ -1,40 +1,23 @@
 <div class="seccion seccion-estrecha">
     <div>
-        <h1 class="titulo-seccion">Resumen del pedido</h1>
-        <p class="texto-suave">Realizar pedido · paso 3 de 3</p>
+        <h1 class="titulo-seccion">Método de envío</h1>
+        <p class="texto-suave">Realizar pedido · paso 3 de 4</p>
     </div>
 
     <div class="formulario">
-        <div>
-            <h2 class="tarjeta-titulo">Productos del pedido</h2>
-            <div>
-                {{#figuras}}
-                    <div class="p-10">
-                        {{TITULO_FIGURA}}<br>
-                        Precio/Unidad: {{PRECIO}} euros <br>
-                        cantidad: {{CANTIDAD}} <br>
-                    </div>
-                {{/figuras}}
-            </div>
-        </div>
-        <div>
-            <h2 class="tarjeta-titulo">Datos de envío</h2>
-            <div>
-                nombre completo: {{nombreCompleto}}<br>
-                direccion: {{direccion}}<br>
-                provincia: {{provincia}}<br>
-            </div>
-            <p class="texto-suave">(por hacer...)</p>
-        </div>
-        <div>
-            <h2 class="tarjeta-titulo">Datos de pago</h2>
-            <div>
-                tipo tarjeta: {{tipoTarjeta}}<br>
-                titular tarjeta: {{titularTarjeta}}<br>
-                numero tarjeta: {{numeroTarjeta}}<br>
-            </div>
-        </div>
+        <label class="opcion">
+            <input type="radio" name="metodo_envio" value="Estándar" checked />
+            Envío estándar (3-5 días)
+        </label>
+        <label class="opcion">
+            <input type="radio" name="metodo_envio" value="Urgente" />
+            Envío urgente (24 horas)
+        </label>
+        <label class="opcion">
+            <input type="radio" name="metodo_envio" value="Recogida en tienda" />
+            Recogida en tienda
+        </label>
     </div>
 
-    <button id="boton_confirmar_pedido" class="btn self-start">Confirmar pedido</button>
+    <button id="aceptar_paso_3" class="btn self-start">Revisar pedido</button>
 </div>

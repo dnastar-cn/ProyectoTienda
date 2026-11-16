@@ -1,47 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar figura</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
 <div th:insert="fragments/general.html :: menu"></div>
 
-<div>Modifica los datos del producto</div>
+<main class="pagina">
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Editar figura</h1>
+        <p class="texto-suave">Modifica los datos del producto.</p>
+    </div>
 
-<form action="#" th:action="guardarCambiosFigura" th:object="${figuraEditar}" method="post" enctype="multipart/form-data">
-    titulo: <input type="text" th:field="*{titulo}">
+    <form action="#" th:action="guardarCambiosFigura" th:object="${figuraEditar}" method="post" enctype="multipart/form-data" class="panel formulario">
+        <label class="campo">
+            Título
+            <input type="text" th:field="*{titulo}" class="input">
+            <span class="mensaje-error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+        </label>
 
-    <span class="mensaje-error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+        <label class="campo">
+            Categoría
+            <select th:field="*{idCategoria}" class="input">
+                <option th:each="c : ${categorias}" th:text="${c.nombre}" th:value="${c.id}" />
+            </select>
+        </label>
 
-    <br>
+        <label class="campo">
+            Precio (€)
+            <input type="text" th:field="*{precio}" class="input">
+            <span class="mensaje-error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+        </label>
 
-    categoria:
-    <select th:field="*{idCategoria}">
-        <option th:each="c : ${categorias}" th:text="${c.nombre}" th:value="${c.id}" />
-    </select>
-    <br>
-    precio: <input type="text" th:field="*{precio}">
+        <label class="campo">
+            Fabricante
+            <input type="text" th:field="*{fabricante}" class="input">
+        </label>
 
-    <span class="mensaje-error"  th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+        <div class="grid grid-cols-2 gap-4">
+            <label class="campo">
+                Altura (cm)
+                <input type="number" th:field="*{altura}" class="input">
+                <span class="mensaje-error" th:if="${#fields.hasErrors('altura')}" th:errors="*{altura}"></span>
+            </label>
+            <label class="campo">
+                Material
+                <input type="text" th:field="*{material}" class="input">
+                <span class="mensaje-error" th:if="${#fields.hasErrors('material')}" th:errors="*{material}"></span>
+            </label>
+        </div>
 
-    <br>
-    fabricante: <input type="text" th:field="*{fabricante}">
-    <br>
-    descripcion: <input type="text" th:field="*{descripcion}">
-    <br>
-    foto actual:
-    <br>
-    <img th:src="@{/mostrar_imagen(id=${figuraEditar.id})}" height="140px"/>
-    <br>
-    portada: <input type="file" th:field="*{fotoSubida}">
-    <br>
-    <input type="hidden" th:field="*{id}">
+        <label class="campo">
+            Descripción
+            <input type="text" th:field="*{descripcion}" class="input">
+        </label>
 
-    <input class="input" type="submit" value="GUARDAR CAMBIOS">
-</form>
+        <div class="campo">
+            Foto actual
+            <img th:src="@{/mostrar_imagen(id=${figuraEditar.id})}" class="w-32 h-32 rounded-lg border border-borde bg-fondo object-contain p-2" th:alt="${figuraEditar.titulo}"/>
+        </div>
+
+        <label class="campo">
+            Cambiar portada
+            <input type="file" th:field="*{fotoSubida}" accept="image/*" class="text-sm file:mr-3 file:rounded-md file:border file:border-borde file:bg-superficie file:px-3 file:py-1.5 file:font-medium file:text-texto file:cursor-pointer">
+        </label>
+
+        <input type="hidden" th:field="*{id}">
+
+        <input class="btn" type="submit" value="Guardar cambios">
+    </form>
+</div>
+</main>
 
 </body>
 </html>

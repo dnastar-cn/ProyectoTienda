@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Figura registrada</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
 <div th:insert="fragments/general.html :: menu"></div>
 
-Registro exitoso
+<main class="pagina">
+    <div class="seccion seccion-estrecha">
+        <p class="aviso-exito">La figura se ha registrado correctamente.</p>
+        <div class="flex gap-3">
+            <a href="gestionarFiguras" class="btn">Ver figuras</a>
+            <a href="registrarFigura" class="btn-secundario">Registrar otra</a>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

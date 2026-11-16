@@ -21,17 +21,65 @@ public class Pedido {
     private String nombreCompleto;
     private String direccion;
     private String provincia;
+    private String localidad;
+    private String codigoPostal;
+    private String telefono;
     // fin paso 1
 
     //se pide en paso 2:
     private String titularTarjeta;
     private String numeroTarjeta;
     private String tipoTarjeta;
+    private String caducidadTarjeta; //formato MM/AA
     //fin paso 2
+
+    //se pide en paso 3:
+    private String metodoEnvio; //estandar, urgente o recogida en tienda
+    //fin paso 3
 
     @Id
     @GeneratedValue
     private Long id;
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCaducidadTarjeta() {
+        return caducidadTarjeta;
+    }
+
+    public void setCaducidadTarjeta(String caducidadTarjeta) {
+        this.caducidadTarjeta = caducidadTarjeta;
+    }
+
+    public String getMetodoEnvio() {
+        return metodoEnvio;
+    }
+
+    public void setMetodoEnvio(String metodoEnvio) {
+        this.metodoEnvio = metodoEnvio;
+    }
 
     public void setId(Long id) {
         this.id = id;

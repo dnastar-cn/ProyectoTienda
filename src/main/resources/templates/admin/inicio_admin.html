@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administración</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
-<div>Bienvenido a la administracion de la tienda</div>
-
 <div th:insert="fragments/general.html :: menu"></div>
 
+<main class="pagina">
+    <div class="seccion">
+        <h1 class="titulo-seccion">Bienvenido a la administración</h1>
+        <p class="texto-suave">Elige en el menú qué quieres gestionar.</p>
 
+        <div class="grid gap-4 sm:grid-cols-2">
+            <a href="gestionarFiguras" class="panel hover:border-texto-suave/60 transition-colors">
+                <h2 class="subtitulo">Figuras</h2>
+                <p class="texto-suave">Añadir, editar y borrar figuras del catálogo.</p>
+            </a>
+            <a href="gestionarCategorias" class="panel hover:border-texto-suave/60 transition-colors">
+                <h2 class="subtitulo">Categorías</h2>
+                <p class="texto-suave">Organizar las figuras por categoría.</p>
+            </a>
+            <a href="gestionarUsuarios" class="panel hover:border-texto-suave/60 transition-colors">
+                <h2 class="subtitulo">Usuarios</h2>
+                <p class="texto-suave">Ver y borrar usuarios registrados.</p>
+            </a>
+            <a href="gestionarPedidos" class="panel hover:border-texto-suave/60 transition-colors">
+                <h2 class="subtitulo">Pedidos</h2>
+                <p class="texto-suave">Revisar pedidos y cambiar su estado.</p>
+            </a>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>
