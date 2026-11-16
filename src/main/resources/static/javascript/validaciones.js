@@ -11,7 +11,7 @@ function validarNombre(nombre){
     if(regexp_nombre.test(nombre)){
         return true;
     }else{
-        alert("nombre debe ser letras y espacios de 2 a 20 caracteres")
+        avisar(textos.nombre_error, "error")
         return false;
     }
 }

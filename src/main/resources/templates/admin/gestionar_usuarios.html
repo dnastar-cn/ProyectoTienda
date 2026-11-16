@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuarios</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
-<div>gestionar usuarios</div>
+<div th:insert="fragments/general.html :: menu"></div>
+
+<main class="pagina pb-12">
+
+    <div class="admin-titulo">
+        <h1 class="titulo-seccion">Usuarios</h1>
+    </div>
+
+    <p class="aviso-error mb-4" th:if="${error != null}" th:text="${error}"></p>
+
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${usuarios}">
+                <td class="w-12">
+                    <img class="avatar-usuario ml-0" th:src="@{${ '../mostrar_imagen_usuario?id=' + u.id }}"
+                         th:alt="${ 'Avatar de ' + u.nombre }" onerror="this.remove()"/>
+                </td>
+                <td class="font-medium" th:text="${u.nombre}"></td>
+                <td th:text="${u.email}"></td>
+                <td>
+                    <a class="enlace-peligro" th:href="@{${ 'borrarUsuario?id=' + u.id }}" onclick="return confirmar(this, '¿Seguro que quieres borrar este usuario?')">Borrar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<div th:replace="~{fragments/general.html :: confirmar}"></div>
 
 </body>
 </html>

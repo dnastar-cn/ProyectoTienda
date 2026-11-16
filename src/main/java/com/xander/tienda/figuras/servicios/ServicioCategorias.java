@@ -8,4 +8,12 @@ public interface ServicioCategorias {
 
     List<Categoria> obtenerCategorias();
 
+    Categoria obtenerCategoriaPorId(int id);
+
+    void registrarCategoria(Categoria c);
+
+    void guardarCambiosCategoria(Categoria c);
+
+    void borrarCategoria(int id) throws Exception;
+
 }

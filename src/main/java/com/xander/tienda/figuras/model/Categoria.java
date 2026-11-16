@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity
 public class Categoria {
 
+    @NotEmpty(message = "debes indicar un nombre")
+    @Size(min = 2, max = 30, message = "el nombre debe tener entre 2 y 30 caracteres")
     private String nombre;
     private String descripcion;
 

@@ -10,13 +10,60 @@ public class ResumenPedido {
     private String nombreCompleto;
     private String direccion;
     private String provincia;
+    private String localidad;
+    private String codigoPostal;
+    private String telefono;
 
     //datos paso 2:
     private String titularTarjeta;
     private String numeroTarjeta;
     private String tipoTarjeta;
+    private String caducidadTarjeta;
+
+    //datos paso 3:
+    private String metodoEnvio;
 
     private List<Map<String,Object>> figuras;
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCaducidadTarjeta() {
+        return caducidadTarjeta;
+    }
+
+    public void setCaducidadTarjeta(String caducidadTarjeta) {
+        this.caducidadTarjeta = caducidadTarjeta;
+    }
+
+    public String getMetodoEnvio() {
+        return metodoEnvio;
+    }
+
+    public void setMetodoEnvio(String metodoEnvio) {
+        this.metodoEnvio = metodoEnvio;
+    }
 
     public String getNombreCompleto() {
         return nombreCompleto;

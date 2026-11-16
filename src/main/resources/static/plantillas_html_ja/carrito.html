@@ -1,7 +1,7 @@
 <div class="seccion">
     <h1 class="titulo-seccion">カート</h1>
 
-    <div class="lista-carrito">
+    <div class="panel lista-carrito py-1">
     {{#.}}
         <div class="fila-carrito">
             <div class="vitrina vitrina-mini">
@@ -13,13 +13,13 @@
             </div>
             <label class="texto-suave">
                 数量
-                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}">
+                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}" min="1">
             </label>
-            <a href="#" class="texto-suave underline">商品を削除</a>
+            <a href="#" class="enlace-peligro text-sm">商品を削除</a>
         </div>
     {{/.}}
     {{^.}}
-        <p class="texto-suave">カートは空です。</p>
+        <p class="texto-suave py-6 text-center">カートは空です。</p>
     {{/.}}
     </div>
 

@@ -1,23 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pedidos</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
     <div th:insert="fragments/general.html :: menu"></div>
-    <div>Pedidos de la tienda:</div>
-    <div th:each="p : ${pedidos}" class="m-4">
 
-        <span th:text="${p.nombreCompleto}"></span><br>
-        <span th:text="${p.direccion}"></span><br>
-        Estado: <span th:text="${p.estado}"></span><br>
-        <a th:href="@{ ${ 'verDetallesPedido?id=' + p.id } }">Ver detalles</a>
+    <main class="pagina pb-12">
+        <div class="admin-titulo">
+            <h1 class="titulo-seccion">Pedidos de la tienda</h1>
+        </div>
 
-    </div>
-
+        <div class="tabla-contenedor">
+            <table class="tabla">
+                <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Cliente</th>
+                    <th>Dirección</th>
+                    <th>Envío</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${pedidos}">
+                    <td class="tabular-nums" th:text="${p.id}"></td>
+                    <td class="font-medium" th:text="${p.nombreCompleto}"></td>
+                    <td th:text="${p.direccion}"></td>
+                    <td th:text="${p.metodoEnvio}"></td>
+                    <td><span class="etiqueta-estado" th:text="${p.estado}"></span></td>
+                    <td><a class="enlace whitespace-nowrap" th:href="@{ ${ 'verDetallesPedido?id=' + p.id } }">Ver detalles</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
 </body>
 </html>

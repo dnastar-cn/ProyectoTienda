@@ -1,44 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nueva figura</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
 <div th:insert="fragments/general.html :: menu"></div>
 
-<div>introduce los datos del nuevo producto</div>
+<main class="pagina">
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Nueva figura</h1>
+        <p class="texto-suave">Introduce los datos del nuevo producto.</p>
+    </div>
 
-<form action="#" th:action="guardarFigura" th:object="${nuevo}" method="post" enctype="multipart/form-data">
-    titulo: <input type="text" th:field="*{titulo}">
+    <form action="#" th:action="guardarFigura" th:object="${nuevo}" method="post" enctype="multipart/form-data" class="panel formulario">
+        <label class="campo">
+            Título
+            <input type="text" th:field="*{titulo}" class="input">
+            <span class="mensaje-error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+        </label>
 
-    <span class="mensaje-error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+        <label class="campo">
+            Precio (€)
+            <input type="text" th:field="*{precio}" class="input">
+            <span class="mensaje-error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+        </label>
 
-    <br>
-    precio: <input type="text" th:field="*{precio}">
+        <label class="campo">
+            Categoría
+            <select th:field="*{idCategoria}" class="input">
+                <option th:each="c : ${categorias}" th:text="${c.nombre}" th:value="${c.id}" />
+            </select>
+        </label>
 
-    <span class="mensaje-error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+        <label class="campo">
+            Fabricante
+            <input type="text" th:field="*{fabricante}" class="input">
+        </label>
 
-    <br>
+        <div class="grid grid-cols-2 gap-4">
+            <label class="campo">
+                Altura (cm)
+                <input type="number" th:field="*{altura}" class="input">
+                <span class="mensaje-error" th:if="${#fields.hasErrors('altura')}" th:errors="*{altura}"></span>
+            </label>
+            <label class="campo">
+                Material
+                <input type="text" th:field="*{material}" class="input">
+                <span class="mensaje-error" th:if="${#fields.hasErrors('material')}" th:errors="*{material}"></span>
+            </label>
+        </div>
 
-    categoria:
-    <select th:field="*{idCategoria}">
-        <option th:each="c : ${categorias}" th:text="${c.nombre}" th:value="${c.id}" />
-    </select>
+        <label class="campo">
+            Descripción
+            <input type="text" th:field="*{descripcion}" class="input">
+        </label>
 
-    <br>
-    fabricante: <input type="text" th:field="*{fabricante}">
-    <br>
-    descripcion: <input type="text" th:field="*{descripcion}">
-    <br>
-    portada: <input type="file" th:field="*{fotoSubida}">
-    <br>
+        <label class="campo">
+            Portada
+            <input type="file" th:field="*{fotoSubida}" accept="image/*" class="text-sm file:mr-3 file:rounded-md file:border file:border-borde file:bg-superficie file:px-3 file:py-1.5 file:font-medium file:text-texto file:cursor-pointer">
+        </label>
 
-
-    <input class="input" type="submit" value="REGISTRAR">
-</form>
+        <input class="btn" type="submit" value="Registrar">
+    </form>
+</div>
+</main>
 
 </body>
 </html>

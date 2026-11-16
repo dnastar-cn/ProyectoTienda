@@ -61,6 +61,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
             //el primer registro tendra id 1
             Figura fPikachu = new Figura("Pikachu", "La mascota eléctrica más famosa", 19.95, "Pokémon Center");
             fPikachu.setSku("FIG-0001");
+            fPikachu.setAltura(12);
+            fPikachu.setMaterial("PVC");
             fPikachu.setCategoria(cPokemon);
             fPikachu.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/1.jpg"));
@@ -68,6 +70,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fCharizard = new Figura("Charizard", "Dragón de fuego en pose de ataque", 34.50, "First 4 Figures");
             fCharizard.setSku("FIG-0002");
+            fCharizard.setAltura(30);
+            fCharizard.setMaterial("Poliresina");
             fCharizard.setCategoria(cPokemon);
             fCharizard.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/2.jpg"));
@@ -75,6 +79,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fGoku = new Figura("Goku Super Saiyan", "Goku transformado lanzando un Kamehameha", 39.90, "Bandai S.H.Figuarts");
             fGoku.setSku("FIG-0003");
+            fGoku.setAltura(14);
+            fGoku.setMaterial("PVC y ABS");
             fGoku.setCategoria(cDragonBall);
             fGoku.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/3.jpg"));
@@ -82,6 +88,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fVegeta = new Figura("Vegeta", "El príncipe de los Saiyans", 37.00, "Bandai S.H.Figuarts");
             fVegeta.setSku("FIG-0004");
+            fVegeta.setAltura(14);
+            fVegeta.setMaterial("PVC y ABS");
             fVegeta.setCategoria(cDragonBall);
             fVegeta.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/4.jpg"));
@@ -89,6 +97,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fSpiderman = new Figura("Spider-Man", "El trepamuros colgado de su telaraña", 29.99, "Bandai S.H.Figuarts");
             fSpiderman.setSku("FIG-0005");
+            fSpiderman.setAltura(15);
+            fSpiderman.setMaterial("PVC y ABS");
             fSpiderman.setCategoria(cMarvel);
             fSpiderman.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/5.jpg"));
@@ -96,6 +106,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fIronMan = new Figura("Iron Man", "Tony Stark con la armadura Mark 85", 45.00, "Bandai S.H.Figuarts");
             fIronMan.setSku("FIG-0006");
+            fIronMan.setAltura(15);
+            fIronMan.setMaterial("PVC y ABS");
             fIronMan.setCategoria(cMarvel);
             fIronMan.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/6.jpg"));
@@ -103,6 +115,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fLuffy = new Figura("Monkey D Luffy Gear 5", "Luffy en su forma más poderosa", 49.95, "Bandai S.H.Figuarts");
             fLuffy.setSku("FIG-0007");
+            fLuffy.setAltura(15);
+            fLuffy.setMaterial("PVC y ABS");
             fLuffy.setCategoria(cOnePiece);
             fLuffy.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/7.jpg"));
@@ -110,6 +124,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fZoro = new Figura("Roronoa Zoro", "El espadachín de las tres espadas", 42.00, "Bandai S.H.Figuarts");
             fZoro.setSku("FIG-0008");
+            fZoro.setAltura(15);
+            fZoro.setMaterial("PVC y ABS");
             fZoro.setCategoria(cOnePiece);
             fZoro.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/8.jpg"));
@@ -117,6 +133,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fMewtwo = new Figura("Mewtwo", "El Pokémon legendario creado en un laboratorio", 32.00, "Jazwares");
             fMewtwo.setSku("FIG-0009");
+            fMewtwo.setAltura(11);
+            fMewtwo.setMaterial("Plástico");
             fMewtwo.setCategoria(cPokemon);
             fMewtwo.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/9.jpg"));
@@ -124,6 +142,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
 
             Figura fThanos = new Figura("Thanos", "El titán loco con el guantelete del infinito", 55.00, "Bandai S.H.Figuarts");
             fThanos.setSku("FIG-0010");
+            fThanos.setAltura(19);
+            fThanos.setMaterial("PVC y ABS");
             fThanos.setCategoria(cMarvel);
             fThanos.setImagenPortada(leerImagenInicial(
                     "http://localhost:8080/imagenes_productos_iniciales/10.jpg"));
@@ -159,11 +179,12 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
             //a partir del carrito
             servicioPedidos.procesarPaso1(
                     "Pedro Fernandez","Arguelles 12",
-                    "Madrid", u1.getId());
+                    "Madrid", "Madrid", "28008", "600123456", u1.getId());
             servicioPedidos.procesarPaso2(
                     "Pedro Fernandez Del Soto","12345678912",
-                    "VISA", u1.getId()
+                    "VISA", "12/28", u1.getId()
             );
+            servicioPedidos.procesarPaso3("Estándar", u1.getId());
             servicioPedidos.confirmarPedido(u1.getId());
             //ya tenemos un pedido en bd :)
 
@@ -175,6 +196,8 @@ public class ServicioSetUpImplJPA implements ServicioSetUp {
                 Figura fNuevo = new Figura();
                 fNuevo.setTitulo(titulo + i);
                 fNuevo.setFabricante("prueba");
+                fNuevo.setAltura(10);
+                fNuevo.setMaterial("prueba");
                 fNuevo.setPrecio(precio);
                 fNuevo.setDescripcion(descripcion + " " + i);
                 fNuevo.setCategoria(cDragonBall);

@@ -6,7 +6,7 @@ public class ConstantesSQL {
             "select tf.id, tf.titulo, tf.precio, tf.fabricante, c.nombre as categoria from TABLA_FIGURAS as tf, CATEGORIA as c where tf.categoria_id = c.id and lower(tf.titulo) like lower(:titulo) limit :comienzo , 10";
 
     public static final String SQL_OBTENER_FIGURA_JSON =
-            "select tf.id, tf.titulo, tf.precio, tf.fabricante, tf.descripcion, c.nombre as categoria from TABLA_FIGURAS as tf, CATEGORIA as c where tf.categoria_id = c.id and tf.id = :id";
+            "select tf.id, tf.titulo, tf.precio, tf.fabricante, tf.altura, tf.material, tf.descripcion, c.nombre as categoria from TABLA_FIGURAS as tf, CATEGORIA as c where tf.categoria_id = c.id and tf.id = :id";
 
     public static final String SQL_OBTENER_PRODUCTOS_CARRITO_JSON =
             "select tf.id as figura_id, tf.precio as precio, " +

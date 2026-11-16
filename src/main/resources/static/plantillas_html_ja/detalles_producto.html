@@ -1,36 +1,38 @@
 
 <!--esto es otra plantilla para mustache-->
-<div class="text-center">
-    <div class="text-xl font-bold">
-        {{TITULO}}
+<div class="detalle">
+
+    <div class="vitrina">
+        <img class="imagen-vitrina" src="mostrar_imagen?id={{ID}}" alt="{{TITULO}}"/>
     </div>
 
-    <div class="m-2.5">
-        {{CATEGORIA}}
-    </div>
+    <div class="detalle-info">
+        <a href="#" class="enlace text-sm self-start" onclick="mostrar_figura()">← カタログに戻る</a>
 
-    <div class="flex justify-center">
-        <img class="imagen-producto" src="mostrar_imagen?id={{ID}}"/>
-    </div>
+        <h1 class="titulo-seccion">{{TITULO}}</h1>
 
+        <p class="detalle-precio">{{PRECIO}} €</p>
 
+        <p>{{DESCRIPCION}}</p>
 
-    <div class="m-1.25">
-        {{DESCRIPCION}}
-    </div>
+        <dl class="ficha">
+            <dt>カテゴリー</dt>
+            <dd>{{CATEGORIA}}</dd>
+            <dt>メーカー</dt>
+            <dd>{{FABRICANTE}}</dd>
+            <dt>高さ</dt>
+            <dd>{{ALTURA}} cm</dd>
+            <dt>素材</dt>
+            <dd>{{MATERIAL}}</dd>
+        </dl>
 
-    <div class="m-1.25">
-        価格: {{PRECIO}}
-    </div>
-
-    <div class="m-1.25">
-        メーカー: {{FABRICANTE}}
-    </div>
-
-    <div>
-    数量: <input class="input input-cantidad" type="number" value="1">
-    <br>
-    <a href="#" class="underline" onclick="alert('agregar cantidad a carrito')">カートに追加</a>
+        <div class="detalle-comprar">
+            <label class="campo">
+                数量
+                <input class="input input-cantidad" type="number" value="1" min="1" id="cantidad_{{ID}}">
+            </label>
+            <a href="#" class="btn" onclick="agregarProductoCarrito({{ID}})">カートに追加</a>
+        </div>
     </div>
 
 </div>

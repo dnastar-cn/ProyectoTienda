@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -72,5 +73,37 @@ public class UsuariosREST {
     public String cerrarSesion(HttpServletRequest request){
         request.getSession().invalidate();
         return "ok";
+    }
+
+    //para mis datos, devuelve los datos del usuario identificado
+    //la pass no la mandamos al js por seguridad
+    @RequestMapping("misDatos")
+    public Map<String,Object> misDatos(HttpServletRequest request){
+        Usuario u = (Usuario)
+                request.getSession().getAttribute("usuario_identificado");
+        Map<String,Object> datos = new HashMap<>();
+        datos.put("id", u.getId());
+        datos.put("nombre", u.getNombre());
+        datos.put("email", u.getEmail());
+        return datos;
+    }
+
+    //guarda los cambios que hace el usuario en mis datos
+    @RequestMapping("actualizarMisDatos")
+    public String actualizarMisDatos(
+            @RequestParam("nombre") String nombre,
+            @RequestParam("email") String email,
+            @RequestParam(name = "pass", defaultValue = "") String pass,
+            HttpServletRequest request){
+        Usuario u = (Usuario)
+                request.getSession().getAttribute("usuario_identificado");
+        try {
+            Usuario actualizado = servicioUsuarios.actualizarDatosUsuario(u.getId(), nombre, email, pass);
+            //actualizo tambien el usuario de la sesion
+            request.getSession().setAttribute("usuario_identificado", actualizado);
+            return "ok," + actualizado.getNombre();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 }

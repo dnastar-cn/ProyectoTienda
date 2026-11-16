@@ -1,10 +1,10 @@
 <div class="seccion seccion-estrecha">
     <div>
         <h1 class="titulo-seccion">お支払い情報</h1>
-        <p class="texto-suave">ご注文手続き · ステップ 2/3</p>
+        <p class="texto-suave">ご注文手続き · ステップ 2/4</p>
     </div>
 
-    <div class="formulario">
+    <div class="panel formulario">
         <label class="campo">
             カードの種類
             <select id="tipo_tarjeta" class="input">
@@ -21,7 +21,11 @@
             カード名義人
             <input type="text" id="titular_tarjeta" class="input" />
         </label>
+        <label class="campo">
+            有効期限 (MM/YY)
+            <input type="text" id="caducidad_tarjeta" class="input w-24" placeholder="12/28" maxlength="5" />
+        </label>
     </div>
 
-    <button id="aceptar_paso_2" class="btn self-start">次へ</button>
+    <button id="aceptar_paso_2" class="btn self-start">配送方法の選択へ</button>
 </div>

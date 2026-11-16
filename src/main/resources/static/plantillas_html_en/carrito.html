@@ -1,7 +1,7 @@
 <div class="seccion">
     <h1 class="titulo-seccion">Your cart</h1>
 
-    <div class="lista-carrito">
+    <div class="panel lista-carrito py-1">
     {{#.}}
         <div class="fila-carrito">
             <div class="vitrina vitrina-mini">
@@ -13,13 +13,13 @@
             </div>
             <label class="texto-suave">
                 Quantity
-                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}">
+                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}" min="1">
             </label>
-            <a href="#" class="texto-suave underline">Remove item</a>
+            <a href="#" class="enlace-peligro text-sm">Remove item</a>
         </div>
     {{/.}}
     {{^.}}
-        <p class="texto-suave">Your cart is empty.</p>
+        <p class="texto-suave py-6 text-center">Your cart is empty.</p>
     {{/.}}
     </div>
 

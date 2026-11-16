@@ -1,47 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalle del pedido</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
 <div th:insert="fragments/general.html :: menu"></div>
 
-<div>Detalles pedido</div>
+<main class="pagina pb-12">
 
-<div>Datos de envio</div>
-nombre completo: <span th:text="${pedido.nombreCompleto}" ></span><br>
-direccion: <span th:text="${pedido.direccion}" ></span><br>
-provincia: <span th:text="${pedido.provincia}" ></span><br>
+    <div class="admin-titulo">
+        <div>
+            <a href="gestionarPedidos" class="enlace text-sm">← Volver a pedidos</a>
+            <h1 class="titulo-seccion">Pedido nº <span th:text="${pedido.id}"></span></h1>
+        </div>
 
-<div>Datos de pago</div>
-tipo tarjeta: <span th:text="${pedido.tipoTarjeta}" ></span><br>
-titular: <span th:text="${pedido.titularTarjeta}" ></span><br>
-Nº de Tarjeta: <span th:text="${pedido.numeroTarjeta}" ></span><br>
-<br>
+        <!-- para cambiar el estado, lo manda el script de abajo -->
+        <label class="campo">
+            Estado
+            <input type = "hidden" id="id_pedido" th:field = "${pedido.id}">
+            <select id="select_estado" th:field="${pedido.estado}" class="input">
+                <option th:each="e : ${estados}" th:text="${e.value}" th:value="${e.key}" ></option>
+            </select>
+        </label>
+    </div>
 
+    <div class="grid gap-4 md:grid-cols-2">
+        <section class="panel flex flex-col gap-3">
+            <h2 class="subtitulo">Datos de envío</h2>
+            <dl class="ficha">
+                <dt>Nombre completo</dt>
+                <dd th:text="${pedido.nombreCompleto}"></dd>
+                <dt>Dirección</dt>
+                <dd th:text="${pedido.direccion}"></dd>
+                <dt>Localidad</dt>
+                <dd th:text="${pedido.localidad}"></dd>
+                <dt>Código postal</dt>
+                <dd th:text="${pedido.codigoPostal}"></dd>
+                <dt>Provincia</dt>
+                <dd th:text="${pedido.provincia}"></dd>
+                <dt>Teléfono</dt>
+                <dd th:text="${pedido.telefono}"></dd>
+                <dt>Método de envío</dt>
+                <dd th:text="${pedido.metodoEnvio}"></dd>
+            </dl>
+        </section>
 
-<div>Productos del pedido</div>
-<div th:each="productoPedido : ${pedido.productosPedido}" >
-    Titulo: <span th:text="${productoPedido.figura.titulo}" ></span><br>
-    Precio Unidad: <span th:text="${productoPedido.figura.precio}" ></span><br>
-    Cantidad: <span th:text="${productoPedido.cantidad}" ></span><br>
-</div>
+        <section class="panel flex flex-col gap-3">
+            <h2 class="subtitulo">Datos de pago</h2>
+            <dl class="ficha">
+                <dt>Tipo de tarjeta</dt>
+                <dd th:text="${pedido.tipoTarjeta}"></dd>
+                <dt>Titular</dt>
+                <dd th:text="${pedido.titularTarjeta}"></dd>
+                <dt>Nº de tarjeta</dt>
+                <dd th:text="${pedido.numeroTarjeta}"></dd>
+                <dt>Caducidad</dt>
+                <dd th:text="${pedido.caducidadTarjeta}"></dd>
+            </dl>
+        </section>
+    </div>
 
-<div >
-    Estado : <span th:text="${pedido.estado}" ></span><br>
-</div>
+    <h2 class="subtitulo pt-8 pb-3">Productos del pedido</h2>
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th>Figura</th>
+                <th class="text-right">Precio unidad</th>
+                <th class="text-right">Cantidad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="productoPedido : ${pedido.productosPedido}">
+                <td class="font-medium" th:text="${productoPedido.figura.titulo}"></td>
+                <td class="text-right tabular-nums"><span th:text="${productoPedido.figura.precio}"></span> €</td>
+                <td class="text-right tabular-nums" th:text="${productoPedido.cantidad}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-
-<input type = "hidden" id="id_pedido" th:field = "${pedido.id}">
-<select id="select_estado" th:field="${pedido.estado}">
-    <option th:each="e : ${estados}" th:text="${e.value}" th:value="${e.key}" ></option>
-</select>
+</main>
 
 <script src="../librerias_js/jquery.js"></script>
 <script>
+    //el mismo aviso flotante de la tienda, aqui no esta aplicacion.js
+    function avisar(mensaje, tipo){
+        $(".aviso-flotante").remove()
+        let aviso = $('<div class="aviso-flotante" role="status"></div>').text(mensaje)
+        if(tipo == "error"){
+            aviso.addClass("aviso-flotante-error").attr("role", "alert")
+        }
+        $("body").append(aviso)
+        setTimeout(function(){
+            aviso.addClass("aviso-flotante-saliendo")
+            setTimeout(function(){ aviso.remove() }, 200)
+        }, 3000)
+    }//end avisar
+
     $("#select_estado").change(
         function(){
             estado_seleccionado = $(this).find(":selected").val();
@@ -52,9 +112,9 @@ Nº de Tarjeta: <span th:text="${pedido.numeroTarjeta}" ></span><br>
                     estado: estado_seleccionado
                 }).done(function(res){
                     if(res != "ok"){
-                        alert(res);
+                        avisar(res, "error");
                     }else{
-                        alert("estado actualizado");
+                        avisar("Estado actualizado");
                     }
             })
         })

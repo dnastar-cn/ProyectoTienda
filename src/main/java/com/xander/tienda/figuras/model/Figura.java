@@ -23,6 +23,14 @@ public class Figura {
 
     @NotNull(message = "debes indicar un fabricante")
     private String fabricante;
+
+    @Min(value = 1, message = "la altura minima es 1 cm")
+    @Max(value = 200, message = "la altura maxima es 200 cm")
+    private int altura; //en centimetros
+
+    @NotEmpty(message = "debes indicar un material")
+    private String material;
+
     private String descripcion;
 
     private String sku; //stock keeping unit //numero de control del producto
@@ -102,6 +110,22 @@ public class Figura {
 
     public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
     public String getDescripcion() {

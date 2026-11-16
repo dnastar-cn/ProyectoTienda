@@ -1,14 +1,22 @@
-<div>Enter your details to log in</div>
+<div class="seccion seccion-estrecha">
+    <div>
+        <h1 class="titulo-seccion">Log in</h1>
+        <p class="texto-suave">Enter your details to log in.</p>
+    </div>
 
-<form id="form_login">
-
-    email: <input type="email" name="email" id="email" class="input" value="pepe@gmail.com" />
-    <br/>
-    password: <input type="password" name="pass" id="pass" class="input" value="123" />
-    <br/>
-    <input type="checkbox" id="recordar_pass"/>
-    remember me (to do...)
-    <br/>
-    <input type="submit" value="log in" class="btn"/>
-
-</form>
+    <form id="form_login" class="panel formulario">
+        <label class="campo">
+            Email
+            <input type="email" name="email" id="email" class="input" value="pepe@gmail.com" />
+        </label>
+        <label class="campo">
+            Password
+            <input type="password" name="pass" id="pass" class="input" value="123" />
+        </label>
+        <label class="casilla">
+            <input type="checkbox" id="recordar_pass"/>
+            Remember me
+        </label>
+        <input type="submit" value="Log in" class="btn"/>
+    </form>
+</div>

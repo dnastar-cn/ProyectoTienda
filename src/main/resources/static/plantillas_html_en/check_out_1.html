@@ -1,10 +1,10 @@
 <div class="seccion seccion-estrecha">
     <div>
         <h1 class="titulo-seccion">Shipping details</h1>
-        <p class="texto-suave">Checkout · step 1 of 3</p>
+        <p class="texto-suave">Checkout · step 1 of 4</p>
     </div>
 
-    <div class="formulario">
+    <div class="panel formulario">
         <label class="campo">
             Full name
             <input type="text" id="campo_nombre" class="input" />
@@ -14,7 +14,8 @@
             <input type="text" id="campo_direccion" class="input" />
         </label>
         <label class="campo">
-            Province:  <select required id="campo_provincia" name="provincia" class="form-control">
+            Province
+            <select required id="campo_provincia" name="provincia" class="input">
             <option value="">Choose a province</option>
             <option value="Álava/Araba">Álava/Araba</option>
             <option value="Albacete">Albacete</option>
@@ -70,7 +71,19 @@
             <option value="Zaragoza">Zaragoza</option>
         </select>
         </label>
+        <label class="campo">
+            Town / City
+            <input type="text" id="campo_localidad" class="input" />
+        </label>
+        <label class="campo">
+            Postcode
+            <input type="text" id="campo_codigo_postal" class="input" inputmode="numeric" maxlength="5" />
+        </label>
+        <label class="campo">
+            Phone
+            <input type="tel" id="campo_telefono" class="input" />
+        </label>
     </div>
 
-    <button id="aceptar_paso_1" class="btn self-start">Continue</button>
+    <button id="aceptar_paso_1" class="btn self-start">Continue to payment</button>
 </div>

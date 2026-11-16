@@ -1,54 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Figuras</title>
     <th:block th:insert="~{fragments/estilos.html :: estilos}"></th:block>
 </head>
 <body>
 
 <div th:insert="fragments/general.html :: menu"></div>
 
-<br>
-    buscador:
-    <form action="gestionarFiguras">
-        titulo: <input type="text" name="titulo" th:value="${titulo}">
-        <input type="submit" value="buscar">
-    </form>
-<br>
-total resultados <span th:text="${total}"></span>
-<div>
-    <a th:if="${ anterior >= 0 }" th:href=" @{ ${ 'gestionarFiguras?comienzo=' + anterior + '&titulo=' + titulo } } ">ANTERIOR</a>
+<main class="pagina pb-12">
 
-    <a th:if="${ siguiente < total }" th:href=" @{ ${ 'gestionarFiguras?comienzo=' + siguiente + '&titulo=' + titulo } } ">SIGUIENTE</a>
+    <div class="admin-titulo">
+        <h1 class="titulo-seccion">Figuras</h1>
+        <a href="registrarFigura" class="btn">Nueva figura</a>
+    </div>
 
-</div>
+    <!-- buscador y paginacion -->
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-4">
+        <form action="gestionarFiguras" class="flex gap-2">
+            <input type="search" name="titulo" th:value="${titulo}" class="input" placeholder="Buscar por título" aria-label="Buscar por título">
+            <input type="submit" value="Buscar" class="btn-secundario">
+        </form>
+        <div class="paginacion">
+            <span><span th:text="${total}"></span> figuras</span>
+            <a class="btn-secundario" th:if="${ anterior >= 0 }" th:href=" @{ ${ 'gestionarFiguras?comienzo=' + anterior + '&titulo=' + titulo } } ">← Anterior</a>
+            <a class="btn-secundario" th:if="${ siguiente < total }" th:href=" @{ ${ 'gestionarFiguras?comienzo=' + siguiente + '&titulo=' + titulo } } ">Siguiente →</a>
+        </div>
+    </div>
 
+    <!-- listar productos, permitiendo borrar y editar -->
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Fabricante</th>
+                <th>Altura</th>
+                <th>Material</th>
+                <th class="text-right">Precio</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="f : ${figuras}">
+                <td><img class="miniatura" th:src="@{${ '../mostrar_imagen?id=' + f.id }}" th:alt="${f.titulo}"/></td>
+                <td class="font-medium" th:text="${f.titulo}"></td>
+                <td th:text="${f.categoria.nombre}"></td>
+                <td th:text="${f.fabricante}"></td>
+                <td class="whitespace-nowrap"><span th:text="${f.altura}"></span> cm</td>
+                <td th:text="${f.material}"></td>
+                <td class="text-right tabular-nums whitespace-nowrap"><span th:text="${f.precio}"></span> €</td>
+                <td>
+                    <div class="acciones-fila">
+                        <a class="enlace" th:href="@{${ 'editarFigura?id=' + f.id }}">Editar</a>
+                        <a class="enlace-peligro" th:href="@{${ 'borrarFigura?id=' + f.id }}" onclick="return confirmar(this, '¿Seguro que quieres borrar esta figura?')">Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div>listar productos, permitiendo borrar y editar</div>
-<div>
-    <a href="registrarFigura">Nuevo producto</a>
-</div>
+</main>
 
-<div th:each="f : ${figuras}" class="m-4">
-    titulo: <span th:text="${f.titulo}"></span>
-    <br>
-    categoria: <span th:text="${f.categoria.nombre}"></span>
-    <br>
-    <img th:src="@{${ '../mostrar_imagen?id=' + f.id }}" height="80px"/>
-    <br>
-    fabricante: <span th:text="${f.fabricante}"></span>
-    <br>
-    descripcion: <span th:text="${f.descripcion}"></span>
-    <br>
-    precio: <span th:text="${f.precio}"></span>
-    <br>
-    <a th:href="@{${ 'borrarFigura?id=' + f.id }}" onclick="return confirm('estas seguro rey?')">BORRAR</a>
-    <br>
-    <a th:href="@{${ 'editarFigura?id=' + f.id }}">Editar</a>
-
-
-</div>
+<div th:replace="~{fragments/general.html :: confirmar}"></div>
 
 </body>
 </html>

@@ -7,34 +7,64 @@
 </head>
 <body>
 
-<div th:fragment="menu" class="menu-principal">
+<!-- cabecera de las paginas de admin -->
+<header th:fragment="menu" class="admin-cabecera">
+    <div class="pagina">
+        <div class="cabecera-fila">
+            <div>
+                <span class="marca" th:text="#{panel.administracion}">Panel de administración</span>
+                <p class="texto-suave" th:text="#{titulo.bienvenida}"></p>
+            </div>
+            <div class="flex flex-wrap items-center gap-4 text-sm">
+                <div th:replace="~{fragments/general.html :: idiomas}"></div>
+                <a class="enlace" href="../" th:text="#{volver.tienda}">Volver a la tienda</a>
+            </div>
+        </div>
 
-    <div class="menu-principal">
-        <span th:text="#{panel.administracion}">Panel de administración</span>
-        <a class="menu-principal" href="../" th:text="#{volver.tienda}">Volver a la tienda</a>
+        <nav class="admin-menu pb-3" th:aria-label="#{admin.menu.titulo}">
+            <a href="gestionarFiguras" th:text="#{admin.menu.figuras}">Figuras</a>
+            <a href="gestionarCategorias" th:text="#{admin.menu.categorias}">Categorías</a>
+            <a href="gestionarUsuarios" th:text="#{admin.menu.usuarios}">Usuarios</a>
+            <a href="gestionarPedidos" th:text="#{admin.menu.pedidos}">Pedidos</a>
+            <a href="cerrarSesion" class="ml-auto">Cerrar sesión</a>
+        </nav>
     </div>
-
-    <div>
-        <span th:text="#{titulo.bienvenida}"></span>
-    </div>
-
-    <div th:replace="~{fragments/general.html :: idiomas}"></div>
-
-    <nav class="menu-principal" th:aria-label="#{admin.menu.titulo}">
-        <a href="gestionarFiguras" th:text="#{admin.menu.figuras}">Figuras</a>
-        <a href="#" th:text="#{admin.menu.usuarios}">Usuarios</a>
-        <a href="#" th:text="#{admin.menu.categorias}">Categorías</a>
-        <a href="gestionarPedidos" th:text="#{admin.menu.pedidos}">Pedidos</a>
-        <a href="cerrarSesion">Cerrar Sesion</a>
-    </nav>
-</div>
+</header>
 
 <!-- selector de idioma: se usa en el admin y en index.html.
      Los nombres de los idiomas no se traducen: cada uno va en su propio idioma -->
-<div th:fragment="idiomas">
-    <a href="?idioma=es">Español</a>
-    <a href="?idioma=en">English</a>
-    <a href="?idioma=ja">日本語</a>
+<div th:fragment="idiomas" class="selector-idiomas">
+    <a href="?idioma=es" lang="es">Español</a>
+    <a href="?idioma=en" lang="en">English</a>
+    <a href="?idioma=ja" lang="ja">日本語</a>
+</div>
+
+<!-- ventana para confirmar antes de borrar, en vez del confirm del navegador.
+     El enlace de borrar llama a confirmar(this, 'pregunta') -->
+<div th:fragment="confirmar">
+    <dialog id="dialogo_confirmar" class="dialogo" onclick="if(event.target == this) cerrar_confirmar()">
+        <div class="dialogo-contenido">
+            <p id="dialogo_pregunta" class="subtitulo"></p>
+            <p class="texto-suave">Esta acción no se puede deshacer.</p>
+            <div class="dialogo-botones">
+                <button type="button" class="btn-secundario" onclick="cerrar_confirmar()">Cancelar</button>
+                <a id="dialogo_borrar" class="btn btn-peligro">Borrar</a>
+            </div>
+        </div>
+    </dialog>
+    <script>
+        //pongo la pregunta y el enlace del borrar en la ventana y la abro
+        function confirmar(enlace, pregunta){
+            document.getElementById("dialogo_pregunta").textContent = pregunta
+            document.getElementById("dialogo_borrar").href = enlace.href
+            document.getElementById("dialogo_confirmar").showModal()
+            return false //para que el enlace no borre todavia
+        }//end confirmar
+
+        function cerrar_confirmar(){
+            document.getElementById("dialogo_confirmar").close()
+        }//end cerrar_confirmar
+    </script>
 </div>
 
 </body>

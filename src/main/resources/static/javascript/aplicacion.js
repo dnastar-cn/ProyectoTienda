@@ -1,6 +1,60 @@
 //variables globales
 nombre_login = "" // variable que indica el nombre del usuario si se ha identificado
 
+//textos de los avisos en cada idioma
+//idioma_actual viene del index de cada idioma
+textos_avisos = {
+    es: {
+        registro_ok: "Te has registrado. Ya puedes iniciar sesión",
+        login_error: "Email o contraseña incorrectos",
+        login_ok: "Sesión iniciada. Ya puedes añadir figuras al carrito",
+        login_primero: "Inicia sesión para añadir figuras al carrito",
+        cantidad_error: "La cantidad tiene que ser 1 o más",
+        carrito_ok: "Añadido al carrito",
+        pedido_ok: "¡Pedido completado! Puedes verlo en Ver mis pedidos",
+        nombre_error: "El nombre solo puede tener letras y espacios, de 2 a 20"
+    },
+    en: {
+        registro_ok: "You're signed up. You can now log in",
+        login_error: "Incorrect email or password",
+        login_ok: "Logged in. You can now add figures to your cart",
+        login_primero: "Log in to add figures to your cart",
+        cantidad_error: "Quantity must be 1 or more",
+        carrito_ok: "Added to cart",
+        pedido_ok: "Order completed! You can see it in My orders",
+        nombre_error: "The name can only have letters and spaces, 2 to 20"
+    },
+    ja: {
+        registro_ok: "登録が完了しました。ログインできます",
+        login_error: "メールアドレスまたはパスワードが正しくありません",
+        login_ok: "ログインしました。カートに追加できます",
+        login_primero: "カートに追加するにはログインしてください",
+        cantidad_error: "数量は1以上にしてください",
+        carrito_ok: "カートに追加しました",
+        pedido_ok: "注文が完了しました。注文履歴で確認できます",
+        nombre_error: "名前は2〜20文字の文字とスペースのみです"
+    }
+}
+textos = textos_avisos[idioma_actual]
+
+//muestra un aviso abajo de la pantalla en vez de un alert
+//tipo puede ser "error" para que salga en rojo
+function avisar(mensaje, tipo){
+    //si ya habia un aviso lo quito para que no se amontonen
+    $(".aviso-flotante").remove()
+    //let para que cada aviso tenga su propia variable
+    let aviso = $('<div class="aviso-flotante" role="status"></div>').text(mensaje)
+    if(tipo == "error"){
+        aviso.addClass("aviso-flotante-error").attr("role", "alert")
+    }
+    $("body").append(aviso)
+    //a los 3 segundos se va y luego lo borro
+    setTimeout(function(){
+        aviso.addClass("aviso-flotante-saliendo")
+        setTimeout(function(){ aviso.remove() }, 200)
+    }, 3000)
+}//end avisar
+
 //parte de descarga de plantillas html
 //plantilla_inicio = $.get("plantillas_html_" + idioma_actual + "/inicio.html")
 $.get("plantillas_html_" + idioma_actual + "/inicio.html").done(function(res){
@@ -36,6 +90,15 @@ $.get("plantillas_html_" + idioma_actual + "/check_out_2.html").done(function (r
 })
 $.get("plantillas_html_" + idioma_actual + "/check_out_3.html").done(function (res){
     plantilla_check_out_3 = res
+})
+$.get("plantillas_html_" + idioma_actual + "/check_out_4.html").done(function (res){
+    plantilla_check_out_4 = res
+})
+$.get("plantillas_html_" + idioma_actual + "/mis_pedidos.html").done(function (res){
+    plantilla_mis_pedidos = res
+})
+$.get("plantillas_html_" + idioma_actual + "/mis_datos.html").done(function (res){
+    plantilla_mis_datos = res
 })
 
 //parte de atencion a enlaces
@@ -163,8 +226,10 @@ function mostrar_formulario_registro_usuario(){
                 contentType: false,
                 processData: false,
                 success: function (res){
-                    alert(res)
                     confetti()
+                    avisar(textos.registro_ok)
+                    //despues de registrarse le llevo al login
+                    mostrar_login()
                 }
 
             })
@@ -201,12 +266,12 @@ function mostrar_login(){
                 }
             ).done(function (res){
                 if(res == "email o pass incorrectos"){
-                    alert(res)
+                    avisar(textos.login_error, "error")
                     return
                 }
                 nombre_login = res.split(",")[1]
                 //aprovechamos y listamos productos
-                alert("identificado correctamente, ya puedes agregar productos a carrito")
+                avisar(textos.login_ok)
                 //una vez identificado correctamente
                 //miramos si la casilla de recordar datos esta avtiva
                 if($("#recordar_pass").prop("checked")){
@@ -218,7 +283,7 @@ function mostrar_login(){
                 }
                 mostrar_figura()
                 id_usuario = res.split(",")[2]
-                html_img = '<img class="avatar-usuario" src="mostrar_imagen_usuario?id=' + id_usuario + '" alt="Avatar de ' + nombre_login + '"/>'
+                html_img = '<img class="avatar-usuario" src="mostrar_imagen_usuario?id=' + id_usuario + '" alt="Avatar de ' + nombre_login + '" onerror="this.remove()"/>'
                 $("#usuarioActual").html("Bienvenido " + nombre_login + html_img)
                 //ocultar los div de enlaces para usuarios no identificados
                 $(".enlace-registrarme").css("display","none")
@@ -236,15 +301,25 @@ function mostrar_login(){
 
 function agregarProductoCarrito(idProducto){
     if ( nombre_login == "" ){
-        alert("identificate primero")
+        avisar(textos.login_primero, "error")
+        //le llevo directamente al login
+        mostrar_login()
+        return
+    }
+    //cada input de cantidad tiene de id cantidad_ y la id de la figura
+    //asi cojo la cantidad de esta figura y no de otra
+    cantidad = parseInt( $("#cantidad_" + idProducto).val() )
+    if( isNaN(cantidad) || cantidad < 1 ){
+        avisar(textos.cantidad_error, "error")
         return
     }
     //mandar a un servicio REST la id y la cantidad del producto
     $.post("restCarrito/agregarProducto",{
         id: idProducto,
-        cantidad: 1
+        cantidad: cantidad
     }).done(function(res){
-        alert(res)
+        //el servidor responde un texto para probar con h2, al usuario le enseño uno claro
+        avisar(textos.carrito_ok)
     })
 }//end agregarProductoCarrito
 
@@ -283,6 +358,9 @@ function enviar_datos_paso1(){
     nombreCompleto = $("#campo_nombre").val()
     direccion = $("#campo_direccion").val()
     provincia = $("#campo_provincia").val()
+    localidad = $("#campo_localidad").val()
+    codigoPostal = $("#campo_codigo_postal").val()
+    telefono = $("#campo_telefono").val()
 
     //validaciones...
     if( ! validarNombre(nombreCompleto) ){
@@ -293,7 +371,10 @@ function enviar_datos_paso1(){
         {
             nombre: nombreCompleto,
             direccion: direccion,
-            provincia: provincia
+            provincia: provincia,
+            localidad: localidad,
+            codigoPostal: codigoPostal,
+            telefono: telefono
         }
     ).done(function (res){
         //alert("el servidor responde: "+ res)
@@ -303,7 +384,7 @@ function enviar_datos_paso1(){
                 enviar_datos_paso2
             )
         }else{
-            alert(res)
+            avisar(res, "error")
         }
     })
 
@@ -314,6 +395,7 @@ function enviar_datos_paso2(){
     tipo_tarjeta = $("#tipo_tarjeta").val()
     numero_tarjeta = $("#numero_tarjeta").val()
     titular_tarjeta = $("#titular_tarjeta").val()
+    caducidad_tarjeta = $("#caducidad_tarjeta").val()
     //validarlos
 
 
@@ -321,31 +403,105 @@ function enviar_datos_paso2(){
     $.post("restPedidos/procesarPaso2",{
         tarjeta: tipo_tarjeta,
         numero: numero_tarjeta,
-        titular: titular_tarjeta
+        titular: titular_tarjeta,
+        caducidad: caducidad_tarjeta
     }).done(function (res){
-        //alert(res)
-        console.log(res)
-        //puedo usar la informacion recibida para mostrar lo necesario en el paso 3
-        $("#contenedor").html(Mustache.render(plantilla_check_out_3,res))
-        $("#boton_confirmar_pedido").click(
-            enviar_datos_paso3
-        )
+        if(res == "ok"){
+            //paso 3, elegir el metodo de envio
+            $("#contenedor").html(plantilla_check_out_3)
+            $("#aceptar_paso_3").click(
+                enviar_datos_paso3
+            )
+        }else{
+            avisar(res, "error")
+        }
     })
 }//end enviar datos paso2
 
 function enviar_datos_paso3(){
-    $.post("restPedidos/procesarPaso3").done(
+    //el metodo de envio es el radio que esta marcado
+    metodo_envio = $("input[name='metodo_envio']:checked").val()
+
+    $.post("restPedidos/procesarPaso3",{
+        metodoEnvio: metodo_envio
+    }).done(function (res){
+        console.log(res)
+        //el servidor devuelve el resumen para mostrarlo en el paso 4
+        $("#contenedor").html(Mustache.render(plantilla_check_out_4,res))
+        $("#boton_confirmar_pedido").click(
+            enviar_datos_paso4
+        )
+    })
+}//end enviar datos paso3
+
+function enviar_datos_paso4(){
+    $.post("restPedidos/procesarPaso4").done(
         function (res){
             if(res == "ok"){
                 confetti()
-                alert("Pedido completado! puedes seguir comprando")
+                avisar(textos.pedido_ok)
                 mostrar_figura()
             }else{
-                alert(res)
+                avisar(res, "error")
             }
         }
     )
-}//end enviar datos paso 3
+}//end enviar datos paso 4
+
+//ver mis pedidos
+$("#pedidos").click(
+    mostrar_mis_pedidos
+)
+
+function mostrar_mis_pedidos(){
+    //pido al servidor los pedidos del usuario
+    $.getJSON("restPedidos/misPedidos").done(
+        function(res){
+            console.log(res)
+            $("#contenedor").html(Mustache.render(plantilla_mis_pedidos, res))
+        }
+    )
+}//end mostrar_mis_pedidos
+
+//mis datos
+$("#mis_datos").click(
+    mostrar_mis_datos
+)
+
+function mostrar_mis_datos(){
+    //pido los datos del usuario y los pongo en el form
+    $.getJSON("restUsuarios/misDatos").done(
+        function(res){
+            $("#contenedor").html(Mustache.render(plantilla_mis_datos, res))
+            $("#form_mis_datos").submit(
+                function(e){
+                    e.preventDefault()
+                    $.post("restUsuarios/actualizarMisDatos",
+                        {
+                            nombre: $("#mis_datos_nombre").val(),
+                            email: $("#mis_datos_email").val(),
+                            pass: $("#mis_datos_pass").val()
+                        }
+                    ).done(function(res){
+                        if(res.startsWith("ok,")){
+                            //cambio el nombre del bienvenido de arriba
+                            nombre_login = res.split(",")[1]
+                            html_img = '<img class="avatar-usuario" src="mostrar_imagen_usuario?id=' + id_usuario + '" alt="Avatar de ' + nombre_login + '" onerror="this.remove()"/>'
+                            $("#usuarioActual").html("Bienvenido " + nombre_login + html_img)
+                            $("#mis_datos_error").addClass("hidden")
+                            $("#mis_datos_ok").removeClass("hidden")
+                            $("#mis_datos_pass").val("")
+                        }else{
+                            //si falla algo, por ejemplo el email repetido
+                            $("#mis_datos_ok").addClass("hidden")
+                            $("#mis_datos_error").text(res).removeClass("hidden")
+                        }
+                    })
+                }//end function
+            )//end submit
+        }
+    )
+}//end mostrar_mis_datos
 
 $("#cerrar_sesion").click(cerrar_sesion)
 
