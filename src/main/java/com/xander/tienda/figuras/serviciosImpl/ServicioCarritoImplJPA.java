@@ -70,6 +70,24 @@ public class ServicioCarritoImplJPA implements ServicioCarrito {
     }
 
     @Override
+    public void cambiarCantidad(long idUsuario, long idProducto, int cantidad) {
+        //busco esa figura en el carrito de ese usuario
+        List<ProductoCarrito> res = entityManager.createQuery(
+                "select pc from ProductoCarrito pc where pc.carrito.usuario.id = :idUsuario and pc.figura.id = :idProducto",
+                ProductoCarrito.class)
+                .setParameter("idUsuario", idUsuario)
+                .setParameter("idProducto", idProducto)
+                .getResultList();
+        for( ProductoCarrito pc : res ){
+            if( cantidad < 1 ){
+                entityManager.remove(pc); //borrar producto
+            }else{
+                pc.setCantidad(cantidad);
+            }
+        }
+    }
+
+    @Override
     public List<Map<String, Object>> obtenerProductosCarrito(long idUsuario) {
         //sacar los productos del carrito a partir de la id de usuario
         // OBTENER EL CARRITO ASI AHORA MISMO NO ES FIABLE:

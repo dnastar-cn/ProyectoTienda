@@ -13,9 +13,9 @@
             </div>
             <label class="texto-suave">
                 数量
-                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}" min="1">
+                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}" min="1" onchange="cambiar_cantidad({{FIGURA_ID}}, this.value)">
             </label>
-            <a href="#" class="enlace-peligro text-sm">商品を削除</a>
+            <a href="#" class="enlace-peligro text-sm" onclick="cambiar_cantidad({{FIGURA_ID}}, 0); return false">商品を削除</a>
         </div>
     {{/.}}
     {{^.}}

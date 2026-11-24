@@ -12,7 +12,8 @@ textos_avisos = {
         cantidad_error: "La cantidad tiene que ser 1 o más",
         carrito_ok: "Añadido al carrito",
         pedido_ok: "¡Pedido completado! Puedes verlo en Ver mis pedidos",
-        nombre_error: "El nombre solo puede tener letras y espacios, de 2 a 20"
+        nombre_error: "El nombre solo puede tener letras y espacios, de 2 a 20",
+        tarjeta_error: "Revisa la tarjeta: elige el tipo, 16 números, titular y caducidad MM/AA"
     },
     en: {
         registro_ok: "You're signed up. You can now log in",
@@ -22,7 +23,8 @@ textos_avisos = {
         cantidad_error: "Quantity must be 1 or more",
         carrito_ok: "Added to cart",
         pedido_ok: "Order completed! You can see it in My orders",
-        nombre_error: "The name can only have letters and spaces, 2 to 20"
+        nombre_error: "The name can only have letters and spaces, 2 to 20",
+        tarjeta_error: "Check the card: choose the type, 16 digits, holder and expiry MM/YY"
     },
     ja: {
         registro_ok: "登録が完了しました。ログインできます",
@@ -32,7 +34,8 @@ textos_avisos = {
         cantidad_error: "数量は1以上にしてください",
         carrito_ok: "カートに追加しました",
         pedido_ok: "注文が完了しました。注文履歴で確認できます",
-        nombre_error: "名前は2〜20文字の文字とスペースのみです"
+        nombre_error: "名前は2〜20文字の文字とスペースのみです",
+        tarjeta_error: "カード情報を確認してください：種類、16桁の番号、名義人、有効期限 MM/YY"
     }
 }
 textos = textos_avisos[idioma_actual]
@@ -226,6 +229,10 @@ function mostrar_formulario_registro_usuario(){
                 contentType: false,
                 processData: false,
                 success: function (res){
+                    if(res != "ok"){
+                        avisar(res, "error")
+                        return
+                    }
                     confetti()
                     avisar(textos.registro_ok)
                     //despues de registrarse le llevo al login
@@ -345,6 +352,15 @@ function mostrar_productos_carrito(){
     )
 }
 
+//se llama desde el input de cantidad y el borrar producto de carrito.html
+//con cantidad 0 se borra la figura del carrito
+function cambiar_cantidad(idProducto, cantidad){
+    $.post("restCarrito/cambiarCantidad",{
+        id: idProducto,
+        cantidad: cantidad
+    }).done(mostrar_productos_carrito)
+}
+
 function mostrar_check_out_paso_1(){
     $("#contenedor").html(plantilla_check_out_1)
     $("#aceptar_paso_1").click(
@@ -393,11 +409,13 @@ function enviar_datos_paso1(){
 function enviar_datos_paso2(){
     //recogiendo datos introducidos
     tipo_tarjeta = $("#tipo_tarjeta").val()
-    numero_tarjeta = $("#numero_tarjeta").val()
+    numero_tarjeta = $("#numero_tarjeta").val().replaceAll(" ", "") //por si lo escribe con espacios
     titular_tarjeta = $("#titular_tarjeta").val()
     caducidad_tarjeta = $("#caducidad_tarjeta").val()
     //validarlos
-
+    if( ! validarTarjeta(tipo_tarjeta, numero_tarjeta, titular_tarjeta, caducidad_tarjeta) ){
+        return
+    }
 
     //mandarlos por el post
     $.post("restPedidos/procesarPaso2",{

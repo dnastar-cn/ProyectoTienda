@@ -40,6 +40,18 @@ public class CarritoREST {
         return respuesta;
     }//end agregarProducto
 
+    //para el input de cantidad y el borrar producto del carrito
+    @RequestMapping("cambiarCantidad")
+    public String cambiarCantidad(
+            @RequestParam("id") long id,
+            @RequestParam("cantidad") int cantidad,
+            HttpServletRequest request){
+        Usuario u = (Usuario)
+                request.getSession().getAttribute("usuario_identificado");
+        servicioCarrito.cambiarCantidad(u.getId(), id, cantidad);
+        return "ok";
+    }
+
     @RequestMapping("obtenerProductos")
     public List<Map<String,Object>> obtenerProductos(HttpServletRequest request){
         return servicioCarrito.obtenerProductosCarrito(

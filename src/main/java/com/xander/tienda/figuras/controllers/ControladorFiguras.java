@@ -74,8 +74,12 @@ public class ControladorFiguras {
         //a la vista indicada en el return
         System.out.println("id recibida para hacer borrar registro: " + id);
 
-        servicioFiguras.borrarFigura(id);
-
+        try {
+            servicioFiguras.borrarFigura(id);
+        } catch (Exception e) {
+            //si esta en un pedido no se borra y le mando el motivo a la vista
+            model.addAttribute("error", e.getMessage());
+        }
         return gestionarFiguras("",0,model);
     }
 

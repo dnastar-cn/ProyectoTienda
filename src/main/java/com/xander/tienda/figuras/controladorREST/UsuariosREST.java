@@ -38,13 +38,16 @@ public class UsuariosREST {
         Usuario u = gson.fromJson(json, Usuario.class);
         //extraigo del form data la imagen para asignarla al avatar del usuario
         try {
-            u.setAvatar(multipartRequest.getFile("avatar").getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            //el avatar es opcional, si no viene no hago nada
+            if( multipartRequest.getFile("avatar") != null ){
+                u.setAvatar(multipartRequest.getFile("avatar").getBytes());
+            }
+            servicioUsuarios.registrarUsuario(u);
+        } catch (Exception e) {
+            //le devuelvo al js el motivo, por ejemplo email repetido
+            return e.getMessage();
         }
-
-        servicioUsuarios.registrarUsuario(u);
-        return "te has registrado correctamente, ya puedes identificarte";
+        return "ok";
     }
 
     //recordatorio: todos estos metodos se llaman desde el js de index.html

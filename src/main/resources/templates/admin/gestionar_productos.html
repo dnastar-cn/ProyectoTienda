@@ -17,6 +17,8 @@
         <a href="registrarFigura" class="btn">Nueva figura</a>
     </div>
 
+    <p class="aviso-error mb-4" th:if="${error != null}" th:text="${error}"></p>
+
     <!-- buscador y paginacion -->
     <div class="flex flex-wrap items-center justify-between gap-3 pb-4">
         <form action="gestionarFiguras" class="flex gap-2">

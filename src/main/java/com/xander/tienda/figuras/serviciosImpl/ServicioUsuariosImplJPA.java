@@ -21,7 +21,26 @@ public class ServicioUsuariosImplJPA implements ServicioUsuarios {
 
 
     @Override
-    public void registrarUsuario(Usuario u) {
+    public void registrarUsuario(Usuario u) throws Exception {
+        //antes se podia registrar con todo vacio, compruebo los datos
+        if( u.getNombre() == null || u.getNombre().trim().length() < 2 ){
+            throw new Exception("el nombre debe tener al menos 2 caracteres");
+        }
+        if( u.getEmail() == null || u.getEmail().isBlank() ){
+            throw new Exception("debes indicar un email");
+        }
+        if( u.getPass() == null || u.getPass().isEmpty() ){
+            throw new Exception("debes indicar una contraseña");
+        }
+        //el email es unico, si ya existe la base de datos daria error
+        long conEseEmail = (long) entityManager.createQuery(
+                "select count(u) from Usuario u where u.email = :email")
+                .setParameter("email", u.getEmail())
+                .getSingleResult();
+        if( conEseEmail > 0 ){
+            throw new Exception("ese email ya esta registrado");
+        }
+        u.setNombre(u.getNombre().trim());
         entityManager.persist(u);
     }
 

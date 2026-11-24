@@ -13,9 +13,9 @@
             </div>
             <label class="texto-suave">
                 Cantidad
-                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}" min="1">
+                <input class="input input-cantidad" type="number" value="{{CANTIDAD}}" min="1" onchange="cambiar_cantidad({{FIGURA_ID}}, this.value)">
             </label>
-            <a href="#" class="enlace-peligro text-sm">Borrar producto</a>
+            <a href="#" class="enlace-peligro text-sm" onclick="cambiar_cantidad({{FIGURA_ID}}, 0); return false">Borrar producto</a>
         </div>
     {{/.}}
     {{^.}}

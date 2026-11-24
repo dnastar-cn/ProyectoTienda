@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ServicioUsuarios {
 
-    void registrarUsuario(Usuario u);
+    void registrarUsuario(Usuario u) throws Exception;
 
     Usuario obtenerUsuarioPorEmailYpass(String email, String pass);
 

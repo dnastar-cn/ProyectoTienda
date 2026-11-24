@@ -72,6 +72,19 @@ public class ServicioFigurasImplJPA implements ServicioFiguras {
         //en JPA la forma comun de borrar un registro es pedirlo comprobar que existe y luego borrarlo
         Figura figuraAborrar = entityManager.find(Figura.class, id);
         if( figuraAborrar != null){
+            //si esta en algun pedido no la borro para no estropear los pedidos
+            long enPedidos = (long) entityManager.createQuery(
+                    "select count(pp) from ProductoPedido pp where pp.figura.id = :id")
+                    .setParameter("id", id)
+                    .getSingleResult();
+            if( enPedidos > 0 ){
+                throw new Exception("no se puede borrar " + figuraAborrar.getTitulo()
+                        + " porque esta en " + enPedidos + " pedidos");
+            }
+            //si esta en algun carrito la quito de los carritos antes de borrarla
+            entityManager.createQuery("delete from ProductoCarrito pc where pc.figura.id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate();
             entityManager.remove(figuraAborrar);
         }else{
             throw new Exception("id no encontrada");
